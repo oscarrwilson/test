@@ -9,6 +9,7 @@ public class LoginGUI extends javax.swing.JFrame {
         initComponents();
         setResizable(false);
         setSize(720, 410);
+        setLocationRelativeTo(null); // center the window on the screen
     }
 
     private boolean isPasswordShown = false;
