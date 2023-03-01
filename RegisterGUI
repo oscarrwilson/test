@@ -1,3 +1,6 @@
+import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.TimerTask;
 
 public class RegisterGUI extends javax.swing.JFrame {
@@ -5,8 +8,9 @@ public class RegisterGUI extends javax.swing.JFrame {
     public RegisterGUI() {
         initComponents();
         setResizable(false);
-        setSize(720,410);
+        setSize(720, 410);
     }
+
     private boolean isPasswordShown = false;
 
     private javax.swing.JPanel Register;
@@ -99,6 +103,7 @@ public class RegisterGUI extends javax.swing.JFrame {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 txt_fNameFocusGained(evt);
             }
+
             public void focusLost(java.awt.event.FocusEvent evt) {
                 txt_fNameFocusLost(evt);
             }
@@ -118,6 +123,7 @@ public class RegisterGUI extends javax.swing.JFrame {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 txt_lNameFocusGained(evt);
             }
+
             public void focusLost(java.awt.event.FocusEvent evt) {
                 txt_lNameFocusLost(evt);
             }
@@ -137,6 +143,7 @@ public class RegisterGUI extends javax.swing.JFrame {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 txt_uNameFocusGained(evt);
             }
+
             public void focusLost(java.awt.event.FocusEvent evt) {
                 txt_uNameFocusLost(evt);
             }
@@ -156,6 +163,7 @@ public class RegisterGUI extends javax.swing.JFrame {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 txt_emailFocusGained(evt);
             }
+
             public void focusLost(java.awt.event.FocusEvent evt) {
                 txt_emailFocusLost(evt);
             }
@@ -376,6 +384,27 @@ public class RegisterGUI extends javax.swing.JFrame {
         );
 
         pack();
+        lbl_login.addMouseListener(new MouseAdapter() {
+            public void mouseEntered(MouseEvent e) {
+                // Change label color when mouse enters
+                lbl_login.setForeground(Color.BLUE);
+                lbl_login.setCursor(new Cursor(Cursor.HAND_CURSOR));
+            }
+
+            public void mouseExited(MouseEvent e) {
+                // Change label color when mouse exits
+                lbl_login.setForeground(Color.BLACK);
+                lbl_login.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+            }
+
+            public void mouseClicked(MouseEvent e) {
+                // Open login window when label is clicked
+                LoginGUI loginGUI = new LoginGUI();
+                loginGUI.setVisible(true);
+                dispose(); // Close the current RegisterGUI window
+            }
+        });
+
     }// </editor-fold>
 
     private void txt_emailActionPerformed(java.awt.event.ActionEvent evt) {
