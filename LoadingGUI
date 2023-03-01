@@ -1,9 +1,11 @@
+import javax.swing.*;
 import java.awt.*;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.util.TimerTask;
 
-public class LoadingGUI extends javax.swing.JFrame {
+public class LoadingGUI extends JFrame {
+
+    private JPanel loader;
+    private JLabel text;
+    private JLabel ball_loader;
 
     public LoadingGUI() {
         initComponents();
@@ -11,39 +13,24 @@ public class LoadingGUI extends javax.swing.JFrame {
         setSize(720, 410);
     }
 
-    private javax.swing.JPanel pnl_bg;
-    private javax.swing.JPanel jPanel;
-    private javax.swing.JPanel loader;
-    private javax.swing.JLabel text;
-    private javax.swing.JLabel ball_loader;
-
     private void initComponents() {
-
         // Create the loader panel and its components
-        loader = new javax.swing.JPanel();
-        text = new javax.swing.JLabel(); // The "loading..." text label
-        ball_loader = new javax.swing.JLabel(); // The ball loader image
+        loader = new JPanel();
+        loader.setBackground(Color.WHITE);
 
-        pnl_bg.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel.setLayout(new java.awt.CardLayout());
+        text = new JLabel("Logging In...");
+        text.setFont(new Font("Tahoma", Font.PLAIN, 18));
+        text.setForeground(new Color(51, 153, 255));
 
+        ball_loader = new JLabel(new ImageIcon(getClass().getResource("ball-loading.gif")));
 
-        loader.setBackground(new java.awt.Color(255, 255, 255));
-
-        text.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        text.setForeground(new java.awt.Color(51, 153, 255));
-        text.setText("Logging In...");
-
-        ball_loader.setIcon(new javax.swing.ImageIcon(getClass().getResource("ball-loading.gif"))); // NOI18N
-
-        javax.swing.GroupLayout loaderLayout = new javax.swing.GroupLayout(loader);
+        GroupLayout loaderLayout = new GroupLayout(loader);
         loader.setLayout(loaderLayout);
         loaderLayout.setHorizontalGroup(
-                loaderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                loaderLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
                         .addGroup(loaderLayout.createSequentialGroup()
                                 .addGap(256, 256, 256)
-                                .addGroup(loaderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(loaderLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
                                         .addComponent(ball_loader)
                                         .addGroup(loaderLayout.createSequentialGroup()
                                                 .addGap(48, 48, 48)
@@ -51,17 +38,15 @@ public class LoadingGUI extends javax.swing.JFrame {
                                 .addContainerGap(264, Short.MAX_VALUE))
         );
         loaderLayout.setVerticalGroup(
-                loaderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                loaderLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
                         .addGroup(loaderLayout.createSequentialGroup()
                                 .addGap(37, 37, 37)
                                 .addComponent(ball_loader)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(text)
                                 .addContainerGap(123, Short.MAX_VALUE))
         );
 
-        jPanel.add(loader, "card3");
+        setContentPane(loader);
     }
-
-
 }
