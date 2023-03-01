@@ -238,23 +238,24 @@ public class LoginGUI extends javax.swing.JFrame {
         });
     }
 
+    // Actions
     private void btn_loginActionPerformed(java.awt.event.ActionEvent evt) {
         // Add code to parse json file for username and password matches...
         // if statement here...
         // Action
         LoadingGUI loadingGUI = new LoadingGUI();
         loadingGUI.setVisible(true);
+        dispose(); // Close the current LoginGUI window
 
         new java.util.Timer().schedule(new TimerTask() {
             @Override
             public void run() {
-                loadingGUI.setVisible(false);
+                loadingGUI.dispose(); // Dispose the loading window
+                LoginGUI loginGUI = new LoginGUI();
+                loginGUI.setVisible(true); // Show the login window again
             }
         }, 1000 * 5);
     }
-
-
-
 
     private void txt_unameActionPerformed(java.awt.event.ActionEvent evt) {
     }
