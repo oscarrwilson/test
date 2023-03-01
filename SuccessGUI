@@ -1,0 +1,99 @@
+import javax.swing.*;
+
+public class SuccessGUI extends JFrame {
+
+    // GUI components
+    private JPanel responsePanel;
+    private JLabel titleLabel;
+    private JLabel registeredImageLabel;
+    private JLabel instructionLabel;
+    private JButton loginButton;
+
+    // Constructor
+    public SuccessGUI() {
+        initComponents();
+        setResizable(false);
+        setSize(720, 410);
+        setLocationRelativeTo(null); // Center the window on the screen
+    }
+
+    // Method to initialize the GUI components
+    private void initComponents() {
+        // Creating the response panel and initializing its components
+        responsePanel = new JPanel();
+
+        titleLabel = new JLabel();
+        registeredImageLabel = new JLabel();
+        instructionLabel = new JLabel();
+        loginButton = new JButton();
+
+        responsePanel.setBackground(new java.awt.Color(255, 255, 255));
+
+        titleLabel.setFont(new java.awt.Font("Tahoma", 0, 24));
+        titleLabel.setForeground(new java.awt.Color(51, 153, 255));
+        titleLabel.setText("Account successfully created!");
+        titleLabel.setAlignmentY(0.0F);
+
+        registeredImageLabel.setIcon(new ImageIcon(getClass().getResource("img_registered copy.png")));
+
+        instructionLabel.setFont(new java.awt.Font("Tahoma", 0, 13));
+        instructionLabel.setText("Go back to the login screen to get started!");
+
+        loginButton.setBackground(new java.awt.Color(0, 153, 153));
+        loginButton.setFont(new java.awt.Font("Tahoma", 0, 24));
+        loginButton.setForeground(new java.awt.Color(255, 255, 255));
+        loginButton.setText("Login");
+        loginButton.setBorder(null);
+        loginButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                handleLoginButton();
+            }
+        });
+
+        GroupLayout responsePanelLayout = new GroupLayout(responsePanel);
+        responsePanel.setLayout(responsePanelLayout);
+        responsePanelLayout.setHorizontalGroup(
+                responsePanelLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                        .addGroup(responsePanelLayout.createSequentialGroup()
+                                .addGap(201, 201, 201)
+                                .addGroup(responsePanelLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                                        .addGroup(responsePanelLayout.createSequentialGroup()
+                                                .addGap(6, 6, 6)
+                                                .addGroup(responsePanelLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                                                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, responsePanelLayout.createSequentialGroup()
+                                                                .addComponent(instructionLabel)
+                                                                .addGap(25, 25, 25))
+                                                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, responsePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                                                .addComponent(registeredImageLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                                .addComponent(loginButton, javax.swing.GroupLayout.PREFERRED_SIZE, 293, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                        .addComponent(titleLabel))
+                                .addContainerGap(210, Short.MAX_VALUE))
+        );
+        responsePanelLayout.setVerticalGroup(
+                responsePanelLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                        .addGroup(responsePanelLayout.createSequentialGroup()
+                                .addGap(13, 13, 13)
+                                .addComponent(titleLabel)
+                                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(registeredImageLabel)
+                                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(instructionLabel)
+                                .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(loginButton, GroupLayout.PREFERRED_SIZE, 65, GroupLayout.PREFERRED_SIZE)
+                                .addContainerGap(43, Short.MAX_VALUE))
+        );
+
+        // Add the response panel to the frame
+        add(responsePanel);
+    }
+
+    // Method to handle login button press
+    private void handleLoginButton() {
+        // Open the login window
+        LoginGUI loginGUI = new LoginGUI();
+        loginGUI.setVisible(true);
+
+        // Close the success window
+        dispose();
+    }
+}
