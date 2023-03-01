@@ -14,7 +14,7 @@ public class LoadingGUI extends JFrame {
     }
 
     private void initComponents() {
-        // Create the loader panel and its components
+        // Creating the loader panel and initialising its components
         loader = new JPanel();
         loader.setBackground(Color.WHITE);
 
@@ -24,6 +24,7 @@ public class LoadingGUI extends JFrame {
 
         ball_loader = new JLabel(new ImageIcon(getClass().getResource("ball-loading.gif")));
 
+        // Setting up the layout of the loader panel
         GroupLayout loaderLayout = new GroupLayout(loader);
         loader.setLayout(loaderLayout);
         loaderLayout.setHorizontalGroup(
@@ -48,5 +49,32 @@ public class LoadingGUI extends JFrame {
         );
 
         setContentPane(loader);
+    }
+
+    // Method to simulate a login process
+    public void simulateLogin() {
+        // Show the loading screen
+        setVisible(true);
+
+        // Use a SwingWorker to perform the login task in the background
+        SwingWorker<Void, Void> worker = new SwingWorker<Void, Void>() {
+            @Override
+            protected Void doInBackground() throws Exception {
+                // Add code to parse json file for username and password matches...
+                Thread.sleep(5000); // Simulate delay
+                return null;
+            }
+
+            @Override
+            protected void done() {
+                // Open the main window after the delay
+                LoginGUI loginGUI = new LoginGUI();
+                loginGUI.setVisible(true);
+                dispose(); // Close the loading window
+
+                // TODO: Replace LoginGUI with the actual ApplicationGUI in the future
+            }
+        };
+        worker.execute();
     }
 }
