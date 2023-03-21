@@ -16,6 +16,7 @@ public class RegisterGUI extends javax.swing.JFrame {
 
     // RegisterController contains all business logic for this GUI...
 //    private RegisterController controller = new RegisterController();
+    private RegisterController registerController;
 
     private javax.swing.JLabel lblTitle;
     private javax.swing.JLabel lblLogin;
@@ -382,8 +383,7 @@ public class RegisterGUI extends javax.swing.JFrame {
         });
 
         btnRegister.addActionListener(e -> {
-            RegisterController registerController = new RegisterController(registerGUI);
-            if (registerController.validateFields()) {
+            if (registerController.validateFields() == true) {
                 // if all entries correct...
                 SuccessGUI successGUI = new SuccessGUI();
                 successGUI.setVisible(true);
