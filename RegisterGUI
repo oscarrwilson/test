@@ -2,7 +2,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 
-public class RegisterGUI extends javax.swing.JFrame {
+public class RegisterGUI extends JFrame {
 
     // Creates new form RegisterGUI
     public RegisterGUI() {
@@ -15,7 +15,6 @@ public class RegisterGUI extends javax.swing.JFrame {
     private boolean isPasswordShown = false;
 
     // RegisterController contains all business logic for this GUI...
-//    private RegisterController controller = new RegisterController();
     private RegisterController registerController;
 
     private javax.swing.JLabel lblTitle;
@@ -89,16 +88,16 @@ public class RegisterGUI extends javax.swing.JFrame {
         txtFirstName.addFocusListener(new FocusAdapter() {
 
             public void focusGained(FocusEvent evt) {
-                txt_fNameFocusGained(evt);
+                txtFirstNameFocusGained(evt);
             }
 
             public void focusLost(FocusEvent evt) {
-                txt_fNameFocusLost(evt);
+                txtFirstNameFocusLost(evt);
             }
         });
         txtFirstName.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
-                txt_fNameActionPerformed(evt);
+                txtFirstNameActionPerformed(evt);
             }
         });
 
@@ -110,17 +109,17 @@ public class RegisterGUI extends javax.swing.JFrame {
         txtLastName.addFocusListener(new FocusAdapter() {
 
             public void focusGained(FocusEvent evt) {
-                txt_lNameFocusGained(evt);
+                txtLastNameFocusGained(evt);
             }
 
             public void focusLost(FocusEvent evt) {
-                txt_lNameFocusLost(evt);
+                txtLastNameFocusLost(evt);
             }
         });
 
         txtUserName.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
-                txt_lNameActionPerformed(evt);
+                txtLastNameActionPerformed(evt);
             }
         });
 
@@ -132,16 +131,16 @@ public class RegisterGUI extends javax.swing.JFrame {
         txtUserName.addFocusListener(new FocusAdapter() {
 
             public void focusGained(FocusEvent evt) {
-                txt_uNameFocusGained(evt);
+                txtUsernameFocusGained(evt);
             }
 
             public void focusLost(FocusEvent evt) {
-                txt_uNameFocusLost(evt);
+                txtUsernameFocusLost(evt);
             }
         });
         txtUserName.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
-                txt_uNameActionPerformed(evt);
+                txtUsernameActionPerformed(evt);
             }
         });
 
@@ -154,16 +153,16 @@ public class RegisterGUI extends javax.swing.JFrame {
         txtEmail.addFocusListener(new FocusAdapter() {
 
             public void focusGained(FocusEvent evt) {
-                txt_emailFocusGained(evt);
+                txtEmailFocusGained(evt);
             }
 
             public void focusLost(FocusEvent evt) {
-                txt_emailFocusLost(evt);
+                txtEmailFocusLost(evt);
             }
         });
         txtUserName.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
-                txt_emailActionPerformed(evt);
+                txtEmailActionPerformed(evt);
             }
         });
 
@@ -236,6 +235,7 @@ public class RegisterGUI extends javax.swing.JFrame {
         btnRegister.setForeground(new Color(255, 255, 255));
         btnRegister.setText("Register");
         btnRegister.setBorder(null);
+
 
         GroupLayout RegisterLayout = new GroupLayout(registerPanel);
         registerPanel.setLayout(RegisterLayout);
@@ -382,59 +382,77 @@ public class RegisterGUI extends javax.swing.JFrame {
             }
         });
 
+//        btnRegister.addActionListener(e -> {
+//            registerController.validateFields();
+////            if (registerController.validateFields() ) {
+//                // if all entries correct...
+////                SuccessGUI successGUI = new SuccessGUI();
+////                successGUI.setVisible(true);
+////                dispose(); // Close the current RegisterGUI window
+////            }
+//        });
+
+
+        // Create a new RegisterController object
+        registerController = new RegisterController();
+
+        // Add ActionListener to the button
         btnRegister.addActionListener(e -> {
             if (registerController.validateFields() == true) {
-                // if all entries correct...
                 SuccessGUI successGUI = new SuccessGUI();
                 successGUI.setVisible(true);
-                dispose(); // Close the current RegisterGUI window
+                dispose();
             }
         });
     }
 
 
-    private void txt_fNameActionPerformed(java.awt.event.ActionEvent evt) {
+    private void txtFirstNameActionPerformed(java.awt.event.ActionEvent evt) {
     }
-    private void txt_fNameFocusGained(java.awt.event.FocusEvent evt) {
+    private void txtFirstNameFocusGained(java.awt.event.FocusEvent evt) {
         txtFirstName.setText(txtFirstName.getText().equals("First Name") ? "" : txtFirstName.getText());
     }
 
-    private void txt_fNameFocusLost(java.awt.event.FocusEvent evt) {
+    private void txtFirstNameFocusLost(java.awt.event.FocusEvent evt) {
         txtFirstName.setText(txtFirstName.getText().isEmpty() ? "First Name" : txtFirstName.getText());
     }
 
-    private void txt_lNameActionPerformed(java.awt.event.ActionEvent evt) {
+
+    private void txtLastNameActionPerformed(java.awt.event.ActionEvent evt) {
     }
 
-    private void txt_lNameFocusGained(java.awt.event.FocusEvent evt) {
+    private void txtLastNameFocusGained(java.awt.event.FocusEvent evt) {
         txtLastName.setText(txtLastName.getText().equals("Last Name") ? "" : txtLastName.getText());
     }
 
-    private void txt_lNameFocusLost(java.awt.event.FocusEvent evt) {
+    private void txtLastNameFocusLost(java.awt.event.FocusEvent evt) {
         txtLastName.setText(txtLastName.getText().isEmpty() ? "Last Name" : txtLastName.getText());
     }
 
-    private void txt_uNameActionPerformed(java.awt.event.ActionEvent evt) {
+
+    private void txtUsernameActionPerformed(java.awt.event.ActionEvent evt) {
     }
 
-    private void txt_uNameFocusGained(FocusEvent evt) {
+    private void txtUsernameFocusGained(FocusEvent evt) {
         txtUserName.setText(txtUserName.getText().equals("Username") ? "" : txtUserName.getText());
     }
 
-    private void txt_uNameFocusLost(FocusEvent evt) {
+    private void txtUsernameFocusLost(FocusEvent evt) {
         txtUserName.setText(txtUserName.getText().isEmpty() ? "Username" : txtUserName.getText());
     }
 
-    private void txt_emailActionPerformed(java.awt.event.ActionEvent evt) {
+
+    private void txtEmailActionPerformed(java.awt.event.ActionEvent evt) {
     }
 
-    private void txt_emailFocusGained(java.awt.event.FocusEvent evt) {
+    private void txtEmailFocusGained(java.awt.event.FocusEvent evt) {
         txtEmail.setText(txtEmail.getText().equals("Email Address") ? "" : txtEmail.getText());
     }
 
-    private void txt_emailFocusLost(java.awt.event.FocusEvent evt) {
+    private void txtEmailFocusLost(java.awt.event.FocusEvent evt) {
         txtEmail.setText(txtEmail.getText().isEmpty() ? "Email Address" : txtEmail.getText());
     }
+
 
     private void handlePasswordFieldFocus(JPasswordField field) {
         if (field.getText().equals("Enter your password") || field.getText().equals("Re-enter your password")) {
