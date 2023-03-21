@@ -1,17 +1,32 @@
 import javax.swing.*;
 
-public class RegisterController extends javax.swing.JFrame {
-    private RegisterController registerController;
-
-    RegisterGUI registerGUI = new RegisterGUI();
+public class RegisterController extends JFrame {
 
     public boolean validateFields() {
+
+        RegisterGUI registerGUI = new RegisterGUI();
+
+//        String firstName = registerGUI.getTxtFirstName().getText();
+//        System.out.println(firstName);
+//        return false;
+//    }
+//}
+
+
         String firstName = registerGUI.getTxtFirstName().getText();
         String lastName = registerGUI.getTxtLastName().getText();
         String email = registerGUI.getTxtEmail().getText();
         String username = registerGUI.getTxtUsername().getText();
         String password = new String(registerGUI.getTxtPassword().getPassword());
         String confirmPassword = new String(registerGUI.getTxtConfirmPassword().getPassword());
+
+
+        System.out.println(firstName);
+        System.out.println(lastName);
+        System.out.println(username);
+        System.out.println(email);
+        System.out.println(password);
+        System.out.println(confirmPassword);
 
         boolean isValidFirstName = firstName.length() <= 25 && !firstName.equalsIgnoreCase("First Name");
         boolean isValidLastName = lastName.length() <= 25 && !lastName.equalsIgnoreCase("Last Name");
@@ -49,6 +64,10 @@ public class RegisterController extends javax.swing.JFrame {
     }
 
     private void showError(String message) {
-        JOptionPane.showMessageDialog(registerGUI, message, "Error", JOptionPane.ERROR_MESSAGE);
+//        JOptionPane.showMessageDialog(, message, "Error", JOptionPane.ERROR_MESSAGE);
+        System.out.println(message);
+        System.out.println("Lol you got pranked.");
+
+
     }
 }
