@@ -1,45 +1,55 @@
 import javax.swing.*;
 
-public class RegisterController {
-    private RegisterGUI registerGUI;
+public class RegisterController extends javax.swing.JFrame {
+    private RegisterController registerController;
 
-    public RegisterController(RegisterGUI registerGUI) {
-        this.registerGUI = registerGUI;
-    }
+    RegisterGUI registerGUI = new RegisterGUI();
 
     public boolean validateFields() {
-        String firstName = registerGUI.getTxtFirstName().getText();
+        return true;
+     /*   String firstName = registerGUI.getTxtFirstName().getText();
         String lastName = registerGUI.getTxtLastName().getText();
         String email = registerGUI.getTxtEmail().getText();
         String username = registerGUI.getTxtUsername().getText();
         String password = new String(registerGUI.getTxtPassword().getPassword());
         String confirmPassword = new String(registerGUI.getTxtConfirmPassword().getPassword());
 
-        boolean isValidFirstName = !firstName.isEmpty();
-        boolean isValidLastName = !lastName.isEmpty();
+        boolean isValidFirstName = firstName.length() <= 25 && !firstName.equalsIgnoreCase("First Name");
+        boolean isValidLastName = lastName.length() <= 25 && !lastName.equalsIgnoreCase("Last Name");
         boolean isValidEmail = email.matches("[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Z|a-z]{2,}");
-        boolean isValidUsername = username.length() >= 5;
-        boolean isValidPassword = password.length() >= 8;
-        boolean isValidConfirmPassword = password.equals(confirmPassword);
+        boolean isValidUsername = username.length() <= 25 && !username.equalsIgnoreCase("Username");
+        boolean isValidPassword = password.length() >= 8 && password.matches("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}$");
+        boolean isValidConfirmPassword = confirmPassword.equals(password);
 
         if (!isValidFirstName) {
-            showError("Please enter your first name");
-        } else if (!isValidLastName) {
-            showError("Please enter your last name");
-        } else if (!isValidEmail) {
+            showError("Please enter a valid first name (up to 25 characters long and not 'First Name')");
+            return false;
+        }
+        if (!isValidLastName) {
+            showError("Please enter a valid last name (up to 25 characters long and not 'Last Name')");
+            return false;
+        }
+        if (!isValidEmail) {
             showError("Please enter a valid email address");
-        } else if (!isValidUsername) {
-            showError("Please enter a valid username (at least 5 characters long)");
-        } else if (!isValidPassword) {
-            showError("Please enter a valid password (at least 8 characters long)");
-        } else if (!isValidConfirmPassword) {
+            return false;
+        }
+        if (!isValidUsername) {
+            showError("Please enter a valid username (up to 25 characters long and not 'Username')");
+            return false;
+        }
+        if (!isValidPassword) {
+            showError("Please enter a valid password (at least 8 characters long and containing at least one uppercase letter, one lowercase letter, one number, and one special character)");
+            return false;
+        }
+        if (!isValidConfirmPassword) {
             showError("Passwords do not match");
+            return false;
         }
 
-        return isValidFirstName && isValidLastName && isValidEmail && isValidUsername && isValidPassword && isValidConfirmPassword;
+        return true;
     }
 
     private void showError(String message) {
-        JOptionPane.showMessageDialog(registerGUI, message, "Error", JOptionPane.ERROR_MESSAGE);
+        JOptionPane.showMessageDialog(registerGUI, message, "Error", JOptionPane.ERROR_MESSAGE);*/
     }
 }
