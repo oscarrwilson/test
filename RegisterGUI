@@ -3,6 +3,7 @@ import java.awt.*;
 import java.awt.event.*;
 
 public class RegisterGUI extends javax.swing.JFrame {
+
     // Creates new form RegisterGUI
     public RegisterGUI() {
         initComponents();
@@ -12,6 +13,9 @@ public class RegisterGUI extends javax.swing.JFrame {
     }
 
     private boolean isPasswordShown = false;
+
+    // RegisterController contains all business logic for this GUI...
+//    private RegisterController controller = new RegisterController();
 
     private javax.swing.JLabel lblTitle;
     private javax.swing.JLabel lblLogin;
@@ -33,7 +37,7 @@ public class RegisterGUI extends javax.swing.JFrame {
     private javax.swing.JSeparator sepEmail;
     private javax.swing.JSeparator sepShowPassword;
     private javax.swing.JSeparator sepShowConfirmPassword;
-    private javax.swing.JButton btnFinish;
+    private javax.swing.JButton btnRegister;
 
     private void initComponents() {
 
@@ -57,11 +61,10 @@ public class RegisterGUI extends javax.swing.JFrame {
         sepEmail = new JSeparator();
         sepShowPassword = new JSeparator();
         sepShowConfirmPassword = new JSeparator();
-        btnFinish = new JButton();
+        btnRegister = new JButton();
 
 
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-
 
 
         lblTitle.setFont(new Font("Tahoma", 0, 24)); // NOI18N
@@ -227,11 +230,11 @@ public class RegisterGUI extends javax.swing.JFrame {
         sepShowConfirmPassword.setBackground(new Color(255, 255, 255));
         sepShowConfirmPassword.setForeground(new Color(0, 153, 153));
 
-        btnFinish.setBackground(new Color(0, 153, 153));
-        btnFinish.setFont(new Font("Tahoma", 1, 14)); // NOI18N
-        btnFinish.setForeground(new Color(255, 255, 255));
-        btnFinish.setText("Finish");
-        btnFinish.setBorder(null);
+        btnRegister.setBackground(new Color(0, 153, 153));
+        btnRegister.setFont(new Font("Tahoma", 1, 14)); // NOI18N
+        btnRegister.setForeground(new Color(255, 255, 255));
+        btnRegister.setText("Register");
+        btnRegister.setBorder(null);
 
         GroupLayout RegisterLayout = new GroupLayout(registerPanel);
         registerPanel.setLayout(RegisterLayout);
@@ -279,7 +282,7 @@ public class RegisterGUI extends javax.swing.JFrame {
                                                                                                                         .addComponent(txtConfirmPassword, GroupLayout.PREFERRED_SIZE, 197, GroupLayout.PREFERRED_SIZE)
                                                                                                                         .addComponent(txtEmail, GroupLayout.PREFERRED_SIZE, 225, GroupLayout.PREFERRED_SIZE)))
                                                                                                         .addGroup(RegisterLayout.createParallelGroup(GroupLayout.Alignment.TRAILING)
-                                                                                                                .addComponent(btnFinish, GroupLayout.PREFERRED_SIZE, 103, GroupLayout.PREFERRED_SIZE)
+                                                                                                                .addComponent(btnRegister, GroupLayout.PREFERRED_SIZE, 103, GroupLayout.PREFERRED_SIZE)
                                                                                                                 .addComponent(sepShowConfirmPassword, GroupLayout.PREFERRED_SIZE, 223, GroupLayout.PREFERRED_SIZE))))
                                                                                         .addGroup(GroupLayout.Alignment.TRAILING, RegisterLayout.createSequentialGroup()
                                                                                                 .addGap(84, 84, 84)
@@ -326,12 +329,11 @@ public class RegisterGUI extends javax.swing.JFrame {
                                 .addGap(24, 24, 24)
                                 .addGroup(RegisterLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
                                         .addComponent(lblLogin)
-                                        .addComponent(btnFinish, GroupLayout.PREFERRED_SIZE, 38, GroupLayout.PREFERRED_SIZE))
+                                        .addComponent(btnRegister, GroupLayout.PREFERRED_SIZE, 38, GroupLayout.PREFERRED_SIZE))
                                 .addContainerGap(106, Short.MAX_VALUE))
         );
 
         jPanel1.add(registerPanel, "card2");
-
 
 
         GroupLayout pnl_bgLayout = new GroupLayout(pnlBg);
@@ -379,14 +381,17 @@ public class RegisterGUI extends javax.swing.JFrame {
             }
         });
 
-        btnFinish.addActionListener(e -> {
-            // if all entries correct...
-            SuccessGUI successGUI = new SuccessGUI();
-            successGUI.setVisible(true);
-            dispose(); // Close the current RegisterGUI window
+        btnRegister.addActionListener(e -> {
+            RegisterController registerController = new RegisterController(registerGUI);
+            if (registerController.validateFields()) {
+                // if all entries correct...
+                SuccessGUI successGUI = new SuccessGUI();
+                successGUI.setVisible(true);
+                dispose(); // Close the current RegisterGUI window
+            }
         });
-
     }
+
 
     private void txt_fNameActionPerformed(java.awt.event.ActionEvent evt) {
     }
@@ -494,4 +499,25 @@ public class RegisterGUI extends javax.swing.JFrame {
             hidePasswordField(txtConfirmPassword, imgShowConfirmPassword);
         }
     }
+
+    public JTextField getTxtFirstName() {
+        return txtFirstName;
+    }
+
+    public JTextField getTxtLastName() {
+        return txtLastName;
+    }
+    public JTextField getTxtUsername() {
+        return txtUserName;
+    }
+    public JTextField getTxtEmail() {
+        return txtEmail;
+    }
+    public JPasswordField getTxtPassword() {
+        return txtPassword;
+    }
+    public JPasswordField getTxtConfirmPassword() {
+        return txtConfirmPassword;
+    }
+
 }
