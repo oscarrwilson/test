@@ -1,7 +1,6 @@
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
-import java.util.TimerTask;
 
 public class RegisterGUI extends javax.swing.JFrame {
     // Creates new form RegisterGUI
@@ -14,78 +13,76 @@ public class RegisterGUI extends javax.swing.JFrame {
 
     private boolean isPasswordShown = false;
 
-    private javax.swing.JPanel Register;
-    private javax.swing.JButton btn_finish;
-    private javax.swing.JLabel img_showPwd;
-    private javax.swing.JLabel img_showPwd2;
+    private javax.swing.JLabel lblTitle;
+    private javax.swing.JLabel lblLogin;
+    private javax.swing.JPanel pnlBg;
+    private javax.swing.JPanel registerPanel;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JLabel lbl_login;
-    private javax.swing.JLabel lbl_title;
-    private javax.swing.JPanel pnl_bg;
-    private javax.swing.JSeparator sept_email;
-    private javax.swing.JSeparator sept_fName;
-    private javax.swing.JSeparator sept_lName;
-    private javax.swing.JSeparator sept_showPwd;
-    private javax.swing.JSeparator sept_showPwd2;
-    private javax.swing.JSeparator sept_uName;
-    private javax.swing.JTextField txt_email;
-    private javax.swing.JTextField txt_fName;
-    private javax.swing.JTextField txt_lName;
-    private javax.swing.JPasswordField txt_pwd;
-    private javax.swing.JPasswordField txt_rePwd;
-    private javax.swing.JTextField txt_uName;
+    private javax.swing.JTextField txtFirstName;
+    private javax.swing.JTextField txtLastName;
+    private javax.swing.JTextField txtUserName;
+    private javax.swing.JTextField txtEmail;
+    private javax.swing.JPasswordField txtPassword;
+    private javax.swing.JPasswordField txtConfirmPassword;
+    private javax.swing.JLabel imgShowPassword;
+    private javax.swing.JLabel imgShowConfirmPassword;
+
+    private javax.swing.JSeparator sepFirstName;
+    private javax.swing.JSeparator sepLastName;
+    private javax.swing.JSeparator sepUserName;
+    private javax.swing.JSeparator sepEmail;
+    private javax.swing.JSeparator sepShowPassword;
+    private javax.swing.JSeparator sepShowConfirmPassword;
+    private javax.swing.JButton btnFinish;
 
     private void initComponents() {
 
-        pnl_bg = new JPanel();
+        lblTitle = new JLabel();
+        lblLogin = new JLabel();
+        pnlBg = new JPanel();
+        registerPanel = new JPanel();
         jPanel1 = new JPanel();
-        Register = new JPanel();
-        btn_finish = new JButton();
-        lbl_title = new JLabel();
-        lbl_login = new JLabel();
-        txt_fName = new JTextField();
-        txt_lName = new JTextField();
-        txt_uName = new JTextField();
-        txt_email = new JTextField();
-        txt_pwd = new JPasswordField();
-        txt_rePwd = new JPasswordField();
-        sept_fName = new JSeparator();
-        sept_lName = new JSeparator();
-        sept_uName = new JSeparator();
-        sept_email = new JSeparator();
-        sept_showPwd = new JSeparator();
-        sept_showPwd2 = new JSeparator();
-        img_showPwd = new JLabel();
-        img_showPwd2 = new JLabel();
+        txtFirstName = new JTextField();
+        txtLastName = new JTextField();
+        txtUserName = new JTextField();
+        txtEmail = new JTextField();
+        txtPassword = new JPasswordField();
+        txtConfirmPassword = new JPasswordField();
+        imgShowPassword = new JLabel();
+        imgShowConfirmPassword = new JLabel();
+
+        sepFirstName = new JSeparator();
+        sepLastName = new JSeparator();
+        sepUserName = new JSeparator();
+        sepEmail = new JSeparator();
+        sepShowPassword = new JSeparator();
+        sepShowConfirmPassword = new JSeparator();
+        btnFinish = new JButton();
 
 
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
-        pnl_bg.setBackground(new Color(255, 255, 255));
+
+
+        lblTitle.setFont(new Font("Tahoma", 0, 24)); // NOI18N
+        lblTitle.setForeground(new Color(102, 102, 102));
+        lblTitle.setText("Create new Account");
+
+        lblLogin.setText("Already have an account?");
+
+        pnlBg.setBackground(new Color(255, 255, 255));
+
+        registerPanel.setBackground(new Color(255, 255, 255));
 
         jPanel1.setBackground(new Color(255, 255, 255));
         jPanel1.setLayout(new CardLayout());
 
-        Register.setBackground(new Color(255, 255, 255));
-
-        btn_finish.setBackground(new Color(0, 153, 153));
-        btn_finish.setFont(new Font("Tahoma", 1, 14)); // NOI18N
-        btn_finish.setForeground(new Color(255, 255, 255));
-        btn_finish.setText("Finish");
-        btn_finish.setBorder(null);
-
-        lbl_title.setFont(new Font("Tahoma", 0, 24)); // NOI18N
-        lbl_title.setForeground(new Color(102, 102, 102));
-        lbl_title.setText("Create new Account");
-
-        lbl_login.setText("Already have an account?");
-
-        txt_fName.setFont(new Font("Tahoma", 0, 13)); // NOI18N
-        txt_fName.setForeground(new Color(102, 102, 102));
-        txt_fName.setText("First Name");
-        txt_fName.setToolTipText("");
-        txt_fName.setBorder(null);
-        txt_fName.addFocusListener(new FocusAdapter() {
+        txtFirstName.setFont(new Font("Tahoma", 0, 13)); // NOI18N
+        txtFirstName.setForeground(new Color(102, 102, 102));
+        txtFirstName.setText("First Name");
+        txtFirstName.setToolTipText("");
+        txtFirstName.setBorder(null);
+        txtFirstName.addFocusListener(new FocusAdapter() {
 
             public void focusGained(FocusEvent evt) {
                 txt_fNameFocusGained(evt);
@@ -95,18 +92,18 @@ public class RegisterGUI extends javax.swing.JFrame {
                 txt_fNameFocusLost(evt);
             }
         });
-        txt_fName.addActionListener(new ActionListener() {
+        txtFirstName.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
                 txt_fNameActionPerformed(evt);
             }
         });
 
-        txt_lName.setFont(new Font("Tahoma", 0, 13)); // NOI18N
-        txt_lName.setForeground(new Color(102, 102, 102));
-        txt_lName.setText("Last Name");
-        txt_lName.setToolTipText("");
-        txt_lName.setBorder(null);
-        txt_lName.addFocusListener(new FocusAdapter() {
+        txtLastName.setFont(new Font("Tahoma", 0, 13)); // NOI18N
+        txtLastName.setForeground(new Color(102, 102, 102));
+        txtLastName.setText("Last Name");
+        txtLastName.setToolTipText("");
+        txtLastName.setBorder(null);
+        txtLastName.addFocusListener(new FocusAdapter() {
 
             public void focusGained(FocusEvent evt) {
                 txt_lNameFocusGained(evt);
@@ -116,18 +113,19 @@ public class RegisterGUI extends javax.swing.JFrame {
                 txt_lNameFocusLost(evt);
             }
         });
-        txt_uName.addActionListener(new ActionListener() {
+
+        txtUserName.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
                 txt_lNameActionPerformed(evt);
             }
         });
 
-        txt_uName.setFont(new Font("Tahoma", 0, 13)); // NOI18N
-        txt_uName.setForeground(new Color(102, 102, 102));
-        txt_uName.setText("Username");
-        txt_uName.setToolTipText("");
-        txt_uName.setBorder(null);
-        txt_uName.addFocusListener(new FocusAdapter() {
+        txtUserName.setFont(new Font("Tahoma", 0, 13)); // NOI18N
+        txtUserName.setForeground(new Color(102, 102, 102));
+        txtUserName.setText("Username");
+        txtUserName.setToolTipText("");
+        txtUserName.setBorder(null);
+        txtUserName.addFocusListener(new FocusAdapter() {
 
             public void focusGained(FocusEvent evt) {
                 txt_uNameFocusGained(evt);
@@ -137,19 +135,19 @@ public class RegisterGUI extends javax.swing.JFrame {
                 txt_uNameFocusLost(evt);
             }
         });
-        txt_uName.addActionListener(new ActionListener() {
+        txtUserName.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
                 txt_uNameActionPerformed(evt);
             }
         });
 
 
-        txt_email.setFont(new Font("Tahoma", 0, 13)); // NOI18N
-        txt_email.setForeground(new Color(102, 102, 102));
-        txt_email.setText("Email Address");
-        txt_email.setToolTipText("");
-        txt_email.setBorder(null);
-        txt_email.addFocusListener(new FocusAdapter() {
+        txtEmail.setFont(new Font("Tahoma", 0, 13)); // NOI18N
+        txtEmail.setForeground(new Color(102, 102, 102));
+        txtEmail.setText("Email Address");
+        txtEmail.setToolTipText("");
+        txtEmail.setBorder(null);
+        txtEmail.addFocusListener(new FocusAdapter() {
 
             public void focusGained(FocusEvent evt) {
                 txt_emailFocusGained(evt);
@@ -159,93 +157,133 @@ public class RegisterGUI extends javax.swing.JFrame {
                 txt_emailFocusLost(evt);
             }
         });
-        txt_uName.addActionListener(new ActionListener() {
+        txtUserName.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
                 txt_emailActionPerformed(evt);
             }
         });
 
-        txt_pwd.setFont(new Font("Tahoma", 0, 13)); // NOI18N
-        txt_pwd.setText("jPasswordField1");
-        txt_pwd.setBorder(null);
+        txtPassword.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
+        txtPassword.setForeground(new java.awt.Color(102, 102, 102));
+        txtPassword.setText("Enter your password");
+        txtPassword.setBorder(null);
+        txtPassword.setEchoChar((char) 0);
+        txtPassword.addFocusListener(new java.awt.event.FocusAdapter() {
 
-        txt_rePwd.setFont(new Font("Tahoma", 0, 13)); // NOI18N
-        txt_rePwd.setText("jPasswordField1");
-        txt_rePwd.setBorder(null);
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtPwdFocusGained(evt);
+            }
 
-        sept_fName.setBackground(new Color(255, 255, 255));
-        sept_fName.setForeground(new Color(0, 153, 153));
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtPwdFocusLost(evt);
+            }
+        });
 
-        sept_lName.setBackground(new Color(255, 255, 255));
-        sept_lName.setForeground(new Color(0, 153, 153));
+        txtConfirmPassword.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
+        txtConfirmPassword.setForeground(new java.awt.Color(102, 102, 102));
+        txtConfirmPassword.setText("Re-enter your password");
+        txtConfirmPassword.setBorder(null);
+        txtConfirmPassword.setEchoChar((char) 0);
+        txtConfirmPassword.addFocusListener(new java.awt.event.FocusAdapter() {
 
-        sept_uName.setBackground(new Color(255, 255, 255));
-        sept_uName.setForeground(new Color(0, 153, 153));
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtRePwdFocusGained(evt);
+            }
 
-        sept_email.setBackground(new Color(255, 255, 255));
-        sept_email.setForeground(new Color(0, 153, 153));
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtRePwdFocusLost(evt);
+            }
+        });
 
-        sept_showPwd.setBackground(new Color(255, 255, 255));
-        sept_showPwd.setForeground(new Color(0, 153, 153));
+        imgShowPassword.setIcon(new javax.swing.ImageIcon(getClass().getResource("img_showPwd.png")));
+        imgShowPassword.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                img_showPwdMousePressed(evt);
+            }
+        });
 
-        sept_showPwd2.setBackground(new Color(255, 255, 255));
-        sept_showPwd2.setForeground(new Color(0, 153, 153));
+        imgShowConfirmPassword.setIcon(new javax.swing.ImageIcon(getClass().getResource("img_showPwd.png")));
+        imgShowConfirmPassword.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                img_showPwd2MousePressed(evt);
+            }
+        });
 
-        img_showPwd.setIcon(new ImageIcon(getClass().getResource("/img_showPwd.png")));
+        sepFirstName.setBackground(new Color(255, 255, 255));
+        sepFirstName.setForeground(new Color(0, 153, 153));
 
-        img_showPwd2.setIcon(new ImageIcon(getClass().getResource("/img_showPwd.png")));
+        sepLastName.setBackground(new Color(255, 255, 255));
+        sepLastName.setForeground(new Color(0, 153, 153));
 
-        GroupLayout RegisterLayout = new GroupLayout(Register);
-        Register.setLayout(RegisterLayout);
+        sepUserName.setBackground(new Color(255, 255, 255));
+        sepUserName.setForeground(new Color(0, 153, 153));
+
+        sepEmail.setBackground(new Color(255, 255, 255));
+        sepEmail.setForeground(new Color(0, 153, 153));
+
+        sepShowPassword.setBackground(new Color(255, 255, 255));
+        sepShowPassword.setForeground(new Color(0, 153, 153));
+
+        sepShowConfirmPassword.setBackground(new Color(255, 255, 255));
+        sepShowConfirmPassword.setForeground(new Color(0, 153, 153));
+
+        btnFinish.setBackground(new Color(0, 153, 153));
+        btnFinish.setFont(new Font("Tahoma", 1, 14)); // NOI18N
+        btnFinish.setForeground(new Color(255, 255, 255));
+        btnFinish.setText("Finish");
+        btnFinish.setBorder(null);
+
+        GroupLayout RegisterLayout = new GroupLayout(registerPanel);
+        registerPanel.setLayout(RegisterLayout);
         RegisterLayout.setHorizontalGroup(
                 RegisterLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
                         .addGroup(RegisterLayout.createSequentialGroup()
                                 .addGroup(RegisterLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
                                         .addGroup(RegisterLayout.createSequentialGroup()
                                                 .addGap(48, 48, 48)
-                                                .addComponent(lbl_login))
+                                                .addComponent(lblLogin))
                                         .addGroup(RegisterLayout.createSequentialGroup()
                                                 .addGap(27, 27, 27)
                                                 .addGroup(RegisterLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                                                        .addComponent(lbl_title, GroupLayout.PREFERRED_SIZE, 214, GroupLayout.PREFERRED_SIZE)
+                                                        .addComponent(lblTitle, GroupLayout.PREFERRED_SIZE, 214, GroupLayout.PREFERRED_SIZE)
                                                         .addGroup(RegisterLayout.createSequentialGroup()
                                                                 .addGap(16, 16, 16)
                                                                 .addGroup(RegisterLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
                                                                         .addGroup(RegisterLayout.createSequentialGroup()
                                                                                 .addGap(6, 6, 6)
-                                                                                .addComponent(txt_pwd, GroupLayout.PREFERRED_SIZE, 197, GroupLayout.PREFERRED_SIZE)
+                                                                                .addComponent(txtPassword, GroupLayout.PREFERRED_SIZE, 197, GroupLayout.PREFERRED_SIZE)
                                                                                 .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                                                                                .addComponent(img_showPwd))
+                                                                                .addComponent(imgShowPassword))
                                                                         .addGroup(RegisterLayout.createSequentialGroup()
                                                                                 .addGroup(RegisterLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
                                                                                         .addGroup(RegisterLayout.createSequentialGroup()
                                                                                                 .addGap(8, 8, 8)
-                                                                                                .addComponent(txt_uName, GroupLayout.PREFERRED_SIZE, 223, GroupLayout.PREFERRED_SIZE))
-                                                                                        .addComponent(sept_uName, GroupLayout.PREFERRED_SIZE, 223, GroupLayout.PREFERRED_SIZE)
-                                                                                        .addComponent(txt_fName, GroupLayout.Alignment.TRAILING, GroupLayout.PREFERRED_SIZE, 223, GroupLayout.PREFERRED_SIZE)
-                                                                                        .addComponent(sept_fName, GroupLayout.PREFERRED_SIZE, 223, GroupLayout.PREFERRED_SIZE)
-                                                                                        .addComponent(sept_showPwd, GroupLayout.PREFERRED_SIZE, 223, GroupLayout.PREFERRED_SIZE))
+                                                                                                .addComponent(txtUserName, GroupLayout.PREFERRED_SIZE, 223, GroupLayout.PREFERRED_SIZE))
+                                                                                        .addComponent(sepUserName, GroupLayout.PREFERRED_SIZE, 223, GroupLayout.PREFERRED_SIZE)
+                                                                                        .addComponent(txtFirstName, GroupLayout.Alignment.TRAILING, GroupLayout.PREFERRED_SIZE, 223, GroupLayout.PREFERRED_SIZE)
+                                                                                        .addComponent(sepFirstName, GroupLayout.PREFERRED_SIZE, 223, GroupLayout.PREFERRED_SIZE)
+                                                                                        .addComponent(sepShowPassword, GroupLayout.PREFERRED_SIZE, 223, GroupLayout.PREFERRED_SIZE))
                                                                                 .addGroup(RegisterLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
                                                                                         .addGroup(RegisterLayout.createSequentialGroup()
                                                                                                 .addGap(157, 157, 157)
                                                                                                 .addGroup(RegisterLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
                                                                                                         .addGroup(RegisterLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
                                                                                                                 .addGroup(GroupLayout.Alignment.TRAILING, RegisterLayout.createSequentialGroup()
-                                                                                                                        .addComponent(sept_lName, GroupLayout.PREFERRED_SIZE, 223, GroupLayout.PREFERRED_SIZE)
+                                                                                                                        .addComponent(sepLastName, GroupLayout.PREFERRED_SIZE, 223, GroupLayout.PREFERRED_SIZE)
                                                                                                                         .addGap(8, 8, 8))
-                                                                                                                .addComponent(txt_lName, GroupLayout.Alignment.TRAILING, GroupLayout.PREFERRED_SIZE, 223, GroupLayout.PREFERRED_SIZE))
-                                                                                                        .addComponent(sept_email, GroupLayout.PREFERRED_SIZE, 223, GroupLayout.PREFERRED_SIZE)
+                                                                                                                .addComponent(txtLastName, GroupLayout.Alignment.TRAILING, GroupLayout.PREFERRED_SIZE, 223, GroupLayout.PREFERRED_SIZE))
+                                                                                                        .addComponent(sepEmail, GroupLayout.PREFERRED_SIZE, 223, GroupLayout.PREFERRED_SIZE)
                                                                                                         .addGroup(RegisterLayout.createSequentialGroup()
                                                                                                                 .addGap(6, 6, 6)
                                                                                                                 .addGroup(RegisterLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                                                                                                                        .addComponent(txt_rePwd, GroupLayout.PREFERRED_SIZE, 197, GroupLayout.PREFERRED_SIZE)
-                                                                                                                        .addComponent(txt_email, GroupLayout.PREFERRED_SIZE, 225, GroupLayout.PREFERRED_SIZE)))
+                                                                                                                        .addComponent(txtConfirmPassword, GroupLayout.PREFERRED_SIZE, 197, GroupLayout.PREFERRED_SIZE)
+                                                                                                                        .addComponent(txtEmail, GroupLayout.PREFERRED_SIZE, 225, GroupLayout.PREFERRED_SIZE)))
                                                                                                         .addGroup(RegisterLayout.createParallelGroup(GroupLayout.Alignment.TRAILING)
-                                                                                                                .addComponent(btn_finish, GroupLayout.PREFERRED_SIZE, 103, GroupLayout.PREFERRED_SIZE)
-                                                                                                                .addComponent(sept_showPwd2, GroupLayout.PREFERRED_SIZE, 223, GroupLayout.PREFERRED_SIZE))))
+                                                                                                                .addComponent(btnFinish, GroupLayout.PREFERRED_SIZE, 103, GroupLayout.PREFERRED_SIZE)
+                                                                                                                .addComponent(sepShowConfirmPassword, GroupLayout.PREFERRED_SIZE, 223, GroupLayout.PREFERRED_SIZE))))
                                                                                         .addGroup(GroupLayout.Alignment.TRAILING, RegisterLayout.createSequentialGroup()
                                                                                                 .addGap(84, 84, 84)
-                                                                                                .addComponent(img_showPwd2)
+                                                                                                .addComponent(imgShowConfirmPassword)
                                                                                                 .addGap(3, 3, 3)))))))))
                                 .addGap(0, 72, Short.MAX_VALUE))
         );
@@ -253,51 +291,51 @@ public class RegisterGUI extends javax.swing.JFrame {
                 RegisterLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
                         .addGroup(RegisterLayout.createSequentialGroup()
                                 .addGap(24, 24, 24)
-                                .addComponent(lbl_title, GroupLayout.PREFERRED_SIZE, 49, GroupLayout.PREFERRED_SIZE)
+                                .addComponent(lblTitle, GroupLayout.PREFERRED_SIZE, 49, GroupLayout.PREFERRED_SIZE)
                                 .addGroup(RegisterLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
                                         .addGroup(RegisterLayout.createSequentialGroup()
                                                 .addGap(18, 18, 18)
-                                                .addComponent(txt_fName, GroupLayout.PREFERRED_SIZE, 40, GroupLayout.PREFERRED_SIZE)
+                                                .addComponent(txtFirstName, GroupLayout.PREFERRED_SIZE, 40, GroupLayout.PREFERRED_SIZE)
                                                 .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(sept_fName, GroupLayout.PREFERRED_SIZE, 14, GroupLayout.PREFERRED_SIZE)
+                                                .addComponent(sepFirstName, GroupLayout.PREFERRED_SIZE, 14, GroupLayout.PREFERRED_SIZE)
                                                 .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
-                                                .addComponent(txt_uName, GroupLayout.PREFERRED_SIZE, 40, GroupLayout.PREFERRED_SIZE)
+                                                .addComponent(txtUserName, GroupLayout.PREFERRED_SIZE, 40, GroupLayout.PREFERRED_SIZE)
                                                 .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(sept_uName, GroupLayout.PREFERRED_SIZE, 14, GroupLayout.PREFERRED_SIZE)
+                                                .addComponent(sepUserName, GroupLayout.PREFERRED_SIZE, 14, GroupLayout.PREFERRED_SIZE)
                                                 .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
                                                 .addGroup(RegisterLayout.createParallelGroup(GroupLayout.Alignment.LEADING, false)
-                                                        .addComponent(txt_pwd)
-                                                        .addComponent(img_showPwd, GroupLayout.PREFERRED_SIZE, 40, GroupLayout.PREFERRED_SIZE))
+                                                        .addComponent(txtPassword)
+                                                        .addComponent(imgShowPassword, GroupLayout.PREFERRED_SIZE, 40, GroupLayout.PREFERRED_SIZE))
                                                 .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(sept_showPwd, GroupLayout.PREFERRED_SIZE, 14, GroupLayout.PREFERRED_SIZE))
+                                                .addComponent(sepShowPassword, GroupLayout.PREFERRED_SIZE, 14, GroupLayout.PREFERRED_SIZE))
                                         .addGroup(RegisterLayout.createSequentialGroup()
                                                 .addGap(18, 18, 18)
-                                                .addComponent(txt_lName, GroupLayout.PREFERRED_SIZE, 40, GroupLayout.PREFERRED_SIZE)
+                                                .addComponent(txtLastName, GroupLayout.PREFERRED_SIZE, 40, GroupLayout.PREFERRED_SIZE)
                                                 .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(sept_lName, GroupLayout.PREFERRED_SIZE, 14, GroupLayout.PREFERRED_SIZE)
+                                                .addComponent(sepLastName, GroupLayout.PREFERRED_SIZE, 14, GroupLayout.PREFERRED_SIZE)
                                                 .addGap(12, 12, 12)
-                                                .addComponent(txt_email, GroupLayout.PREFERRED_SIZE, 40, GroupLayout.PREFERRED_SIZE)
+                                                .addComponent(txtEmail, GroupLayout.PREFERRED_SIZE, 40, GroupLayout.PREFERRED_SIZE)
                                                 .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(sept_email, GroupLayout.PREFERRED_SIZE, 17, GroupLayout.PREFERRED_SIZE)
+                                                .addComponent(sepEmail, GroupLayout.PREFERRED_SIZE, 17, GroupLayout.PREFERRED_SIZE)
                                                 .addGap(3, 3, 3)
                                                 .addGroup(RegisterLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                                                        .addComponent(txt_rePwd, GroupLayout.PREFERRED_SIZE, 40, GroupLayout.PREFERRED_SIZE)
-                                                        .addComponent(img_showPwd2, GroupLayout.PREFERRED_SIZE, 40, GroupLayout.PREFERRED_SIZE))
+                                                        .addComponent(txtConfirmPassword, GroupLayout.PREFERRED_SIZE, 40, GroupLayout.PREFERRED_SIZE)
+                                                        .addComponent(imgShowConfirmPassword, GroupLayout.PREFERRED_SIZE, 40, GroupLayout.PREFERRED_SIZE))
                                                 .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(sept_showPwd2, GroupLayout.PREFERRED_SIZE, 14, GroupLayout.PREFERRED_SIZE)))
+                                                .addComponent(sepShowConfirmPassword, GroupLayout.PREFERRED_SIZE, 14, GroupLayout.PREFERRED_SIZE)))
                                 .addGap(24, 24, 24)
                                 .addGroup(RegisterLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-                                        .addComponent(lbl_login)
-                                        .addComponent(btn_finish, GroupLayout.PREFERRED_SIZE, 38, GroupLayout.PREFERRED_SIZE))
+                                        .addComponent(lblLogin)
+                                        .addComponent(btnFinish, GroupLayout.PREFERRED_SIZE, 38, GroupLayout.PREFERRED_SIZE))
                                 .addContainerGap(106, Short.MAX_VALUE))
         );
 
-        jPanel1.add(Register, "card2");
+        jPanel1.add(registerPanel, "card2");
 
 
 
-        GroupLayout pnl_bgLayout = new GroupLayout(pnl_bg);
-        pnl_bg.setLayout(pnl_bgLayout);
+        GroupLayout pnl_bgLayout = new GroupLayout(pnlBg);
+        pnlBg.setLayout(pnl_bgLayout);
         pnl_bgLayout.setHorizontalGroup(
                 pnl_bgLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
                         .addComponent(jPanel1, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -311,26 +349,26 @@ public class RegisterGUI extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
                 layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                        .addComponent(pnl_bg, GroupLayout.Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(pnlBg, GroupLayout.Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
                 layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                        .addComponent(pnl_bg, GroupLayout.Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(pnlBg, GroupLayout.Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
 
-        lbl_login.addMouseListener(new MouseAdapter() {
+        lblLogin.addMouseListener(new MouseAdapter() {
             public void mouseEntered(MouseEvent e) {
                 // Change label color when mouse enters
-                lbl_login.setForeground(Color.BLUE);
-                lbl_login.setCursor(new Cursor(Cursor.HAND_CURSOR));
+                lblLogin.setForeground(Color.BLUE);
+                lblLogin.setCursor(new Cursor(Cursor.HAND_CURSOR));
             }
 
             public void mouseExited(MouseEvent e) {
                 // Change label color when mouse exits
-                lbl_login.setForeground(Color.BLACK);
-                lbl_login.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+                lblLogin.setForeground(Color.BLACK);
+                lblLogin.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
             }
 
             public void mouseClicked(MouseEvent e) {
@@ -341,7 +379,7 @@ public class RegisterGUI extends javax.swing.JFrame {
             }
         });
 
-        btn_finish.addActionListener(e -> {
+        btnFinish.addActionListener(e -> {
             // if all entries correct...
             SuccessGUI successGUI = new SuccessGUI();
             successGUI.setVisible(true);
@@ -353,78 +391,107 @@ public class RegisterGUI extends javax.swing.JFrame {
     private void txt_fNameActionPerformed(java.awt.event.ActionEvent evt) {
     }
     private void txt_fNameFocusGained(java.awt.event.FocusEvent evt) {
-        txt_fName.setText(txt_fName.getText().equals("First Name") ? "" : txt_fName.getText());
+        txtFirstName.setText(txtFirstName.getText().equals("First Name") ? "" : txtFirstName.getText());
     }
 
     private void txt_fNameFocusLost(java.awt.event.FocusEvent evt) {
-        txt_fName.setText(txt_fName.getText().isEmpty() ? "First Name" : txt_fName.getText());
+        txtFirstName.setText(txtFirstName.getText().isEmpty() ? "First Name" : txtFirstName.getText());
     }
 
     private void txt_lNameActionPerformed(java.awt.event.ActionEvent evt) {
     }
 
     private void txt_lNameFocusGained(java.awt.event.FocusEvent evt) {
-        txt_lName.setText(txt_lName.getText().equals("Last Name") ? "" : txt_lName.getText());
+        txtLastName.setText(txtLastName.getText().equals("Last Name") ? "" : txtLastName.getText());
     }
 
     private void txt_lNameFocusLost(java.awt.event.FocusEvent evt) {
-        txt_lName.setText(txt_lName.getText().isEmpty() ? "Last Name" : txt_lName.getText());
+        txtLastName.setText(txtLastName.getText().isEmpty() ? "Last Name" : txtLastName.getText());
     }
 
     private void txt_uNameActionPerformed(java.awt.event.ActionEvent evt) {
     }
 
     private void txt_uNameFocusGained(FocusEvent evt) {
-        txt_uName.setText(txt_uName.getText().equals("Username") ? "" : txt_uName.getText());
+        txtUserName.setText(txtUserName.getText().equals("Username") ? "" : txtUserName.getText());
     }
 
     private void txt_uNameFocusLost(FocusEvent evt) {
-        txt_uName.setText(txt_uName.getText().isEmpty() ? "Username" : txt_uName.getText());
+        txtUserName.setText(txtUserName.getText().isEmpty() ? "Username" : txtUserName.getText());
     }
 
     private void txt_emailActionPerformed(java.awt.event.ActionEvent evt) {
     }
 
     private void txt_emailFocusGained(java.awt.event.FocusEvent evt) {
-        txt_email.setText(txt_email.getText().equals("Email Address") ? "" : txt_email.getText());
+        txtEmail.setText(txtEmail.getText().equals("Email Address") ? "" : txtEmail.getText());
     }
 
     private void txt_emailFocusLost(java.awt.event.FocusEvent evt) {
-        txt_email.setText(txt_email.getText().isEmpty() ? "Email Address" : txt_email.getText());
+        txtEmail.setText(txtEmail.getText().isEmpty() ? "Email Address" : txtEmail.getText());
     }
 
-
-
-    private void txt_pwdFocusGained(java.awt.event.FocusEvent evt) {
-        if (txt_pwd.getText().equals("Enter your password")) {
-            txt_pwd.setText("");
+    private void handlePasswordFieldFocus(JPasswordField field) {
+        if (field.getText().equals("Enter your password") || field.getText().equals("Re-enter your password")) {
+            field.setText("");
             if (!isPasswordShown) {
-                txt_pwd.setEchoChar('*'); // Show password when text is cleared, but only if it was previously hidden
+                field.setEchoChar('*'); // Show password when text is cleared, but only if it was previously hidden
             }
         }
     }
 
-    private void txt_passFocusLost(java.awt.event.FocusEvent evt) {
-        if (txt_pwd.getPassword().length == 0) {
-            txt_pwd.setText("Enter your password");
-            txt_pwd.setEchoChar((char) 0); // Hide password when default text is restored
+    private void handlePasswordFieldBlur(JPasswordField field) {
+        if (field.getPassword().length == 0) {
+            field.setText("Enter your password");
+            field.setEchoChar((char) 0); // Hide password when default text is restored
         }
         // Select all text to hide password when focus is lost
-        txt_pwd.selectAll();
+        field.selectAll();
+    }
+
+    private void showPasswordField(JPasswordField field, JLabel icon) {
+        field.setEchoChar((char) 0);
+        icon.setIcon(new javax.swing.ImageIcon(getClass().getResource("img_uname.png")));
+    }
+
+    private void hidePasswordField(JPasswordField field, JLabel icon) {
+        if (!field.getText().equals("Enter your password")) {
+            field.setEchoChar('*');
+        }
+        icon.setIcon(new javax.swing.ImageIcon(getClass().getResource("img_showPwd.png")));
+    }
+
+    private void txtPwdFocusGained(java.awt.event.FocusEvent evt) {
+        handlePasswordFieldFocus(txtPassword);
+    }
+
+    private void txtPwdFocusLost(java.awt.event.FocusEvent evt) {
+        handlePasswordFieldBlur(txtPassword);
+    }
+
+    private void txtRePwdFocusGained(java.awt.event.FocusEvent evt) {
+        handlePasswordFieldFocus(txtConfirmPassword);
+    }
+
+    private void txtRePwdFocusLost(java.awt.event.FocusEvent evt) {
+        handlePasswordFieldBlur(txtConfirmPassword);
     }
 
     private void img_showPwdMousePressed(java.awt.event.MouseEvent evt) {
         isPasswordShown = !isPasswordShown;
         if (isPasswordShown) {
-            // If showPwd is clicked, show the user-entered password
-            txt_pwd.setEchoChar((char) 0);
-            img_showPwd.setIcon(new javax.swing.ImageIcon(getClass().getResource("img_uname.png")));
+            showPasswordField(txtPassword, imgShowPassword);
         } else {
-            // If hidePwd is clicked, obscure the password by default
-            if (!txt_pwd.getText().equals("Enter your password")) {
-                txt_pwd.setEchoChar('*');
-            }
-            img_showPwd.setIcon(new javax.swing.ImageIcon(getClass().getResource("img_showPwd.png")));
+            hidePasswordField(txtPassword, imgShowPassword);
+        }
+    }
+
+    private void img_showPwd2MousePressed(java.awt.event.MouseEvent evt) {
+        isPasswordShown = !isPasswordShown;
+        if (isPasswordShown) {
+            showPasswordField(txtConfirmPassword, imgShowConfirmPassword);
+        } else {
+            hidePasswordField(txtConfirmPassword, imgShowConfirmPassword);
         }
     }
 }
