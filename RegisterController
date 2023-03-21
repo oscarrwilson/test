@@ -1,0 +1,67 @@
+import javax.swing.*;
+
+public class RegisterController {
+    private RegisterGUI registerGUI;
+
+    public RegisterController(RegisterGUI registerGUI) {
+        this.registerGUI = registerGUI;
+    }
+
+
+    public boolean validateFields() {
+        String firstName = registerGUI.getTxtFirstName().getText();
+        String lastName = registerGUI.getTxtLastName().getText();
+        String email = registerGUI.getTxtEmail().getText();
+        String username = registerGUI.getTxtUsername().getText();
+        String password = new String(registerGUI.getTxtPassword().getPassword());
+        String confirmPassword = new String(registerGUI.getTxtConfirmPassword().getPassword());
+
+        if (firstName.isEmpty()) {
+            showError("Please enter your first name");
+            return false;
+        }
+
+        if (lastName.isEmpty()) {
+            showError("Please enter your last name");
+            return false;
+        }
+
+        if (email.isEmpty()) {
+            showError("Please enter your email");
+            return false;
+        } else if (!email.matches("[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Z|a-z]{2,}")) {
+            showError("Please enter a valid email address");
+            return false;
+        }
+
+        if (username.isEmpty()) {
+            showError("Please enter a username");
+            return false;
+        } else if (username.length() < 5) {
+            showError("Username must be at least 5 characters long");
+            return false;
+        }
+
+        if (password.isEmpty()) {
+            showError("Please enter a password");
+            return false;
+        } else if (password.length() < 8) {
+            showError("Password must be at least 8 characters long");
+            return false;
+        }
+
+        if (confirmPassword.isEmpty()) {
+            showError("Please confirm your password");
+            return false;
+        } else if (!password.equals(confirmPassword)) {
+            showError("Passwords do not match");
+            return false;
+        }
+
+        return true;
+    }
+
+    private void showError(String message) {
+        JOptionPane.showMessageDialog(gui, message, "Error", JOptionPane.ERROR_MESSAGE);
+    }
+}
