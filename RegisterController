@@ -6,8 +6,7 @@ public class RegisterController extends javax.swing.JFrame {
     RegisterGUI registerGUI = new RegisterGUI();
 
     public boolean validateFields() {
-        return true;
-     /*   String firstName = registerGUI.getTxtFirstName().getText();
+        String firstName = registerGUI.getTxtFirstName().getText();
         String lastName = registerGUI.getTxtLastName().getText();
         String email = registerGUI.getTxtEmail().getText();
         String username = registerGUI.getTxtUsername().getText();
@@ -50,6 +49,6 @@ public class RegisterController extends javax.swing.JFrame {
     }
 
     private void showError(String message) {
-        JOptionPane.showMessageDialog(registerGUI, message, "Error", JOptionPane.ERROR_MESSAGE);*/
+        JOptionPane.showMessageDialog(registerGUI, message, "Error", JOptionPane.ERROR_MESSAGE);
     }
 }
