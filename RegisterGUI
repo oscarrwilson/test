@@ -382,17 +382,6 @@ public class RegisterGUI extends JFrame {
             }
         });
 
-//        btnRegister.addActionListener(e -> {
-//            registerController.validateFields();
-////            if (registerController.validateFields() ) {
-//                // if all entries correct...
-////                SuccessGUI successGUI = new SuccessGUI();
-////                successGUI.setVisible(true);
-////                dispose(); // Close the current RegisterGUI window
-////            }
-//        });
-
-
         // Create a new RegisterController object
         registerController = new RegisterController();
 
