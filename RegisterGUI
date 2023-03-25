@@ -63,9 +63,7 @@ public class RegisterGUI extends JFrame {
         sepShowConfirmPassword = new JSeparator();
         btnRegister = new JButton();
 
-
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-
 
         lblTitle.setFont(new Font("Tahoma", 0, 24)); // NOI18N
         lblTitle.setForeground(new Color(102, 102, 102));
@@ -86,18 +84,11 @@ public class RegisterGUI extends JFrame {
         txtFirstName.setToolTipText("");
         txtFirstName.setBorder(null);
         txtFirstName.addFocusListener(new FocusAdapter() {
-
             public void focusGained(FocusEvent evt) {
                 txtFirstNameFocusGained(evt);
             }
-
             public void focusLost(FocusEvent evt) {
                 txtFirstNameFocusLost(evt);
-            }
-        });
-        txtFirstName.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent evt) {
-                txtFirstNameActionPerformed(evt);
             }
         });
 
@@ -117,12 +108,6 @@ public class RegisterGUI extends JFrame {
             }
         });
 
-        txtUserName.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent evt) {
-                txtLastNameActionPerformed(evt);
-            }
-        });
-
         txtUserName.setFont(new Font("Tahoma", 0, 13)); // NOI18N
         txtUserName.setForeground(new Color(102, 102, 102));
         txtUserName.setText("Username");
@@ -138,12 +123,6 @@ public class RegisterGUI extends JFrame {
                 txtUsernameFocusLost(evt);
             }
         });
-        txtUserName.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent evt) {
-                txtUsernameActionPerformed(evt);
-            }
-        });
-
 
         txtEmail.setFont(new Font("Tahoma", 0, 13)); // NOI18N
         txtEmail.setForeground(new Color(102, 102, 102));
@@ -158,11 +137,6 @@ public class RegisterGUI extends JFrame {
 
             public void focusLost(FocusEvent evt) {
                 txtEmailFocusLost(evt);
-            }
-        });
-        txtUserName.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent evt) {
-                txtEmailActionPerformed(evt);
             }
         });
 
@@ -360,7 +334,6 @@ public class RegisterGUI extends JFrame {
         );
 
         pack();
-
         lblLogin.addMouseListener(new MouseAdapter() {
             public void mouseEntered(MouseEvent e) {
                 // Change label color when mouse enters
@@ -385,29 +358,28 @@ public class RegisterGUI extends JFrame {
         // Create a new RegisterController object
         registerController = new RegisterController();
 
-        // Add ActionListener to the button
-        btnRegister.addActionListener(e -> {
-            if (registerController.validateFields() == true) {
-                SuccessGUI successGUI = new SuccessGUI();
-                successGUI.setVisible(true);
-                dispose();
-            }
+            btnRegister.addActionListener(e -> {
+                // Retrieve text from the first name field
+                String fNS = txtFirstName.getText();
+                String lNS = txtLastName.getText();
+                String uS = txtUserName.getText();
+                String eS = txtEmail.getText();
+
+                // Validating the input
+                if (registerController.validateFields(fNS, lNS, uS, eS, eS, eS) == true) {
+                    SuccessGUI successGUI = new SuccessGUI();
+                    successGUI.setVisible(true);
+                    dispose();
+                }
         });
     }
 
-
-    private void txtFirstNameActionPerformed(java.awt.event.ActionEvent evt) {
-    }
-    private void txtFirstNameFocusGained(java.awt.event.FocusEvent evt) {
+    private void txtFirstNameFocusGained(FocusEvent evt) {
         txtFirstName.setText(txtFirstName.getText().equals("First Name") ? "" : txtFirstName.getText());
     }
 
-    private void txtFirstNameFocusLost(java.awt.event.FocusEvent evt) {
+    private void txtFirstNameFocusLost(FocusEvent evt) {
         txtFirstName.setText(txtFirstName.getText().isEmpty() ? "First Name" : txtFirstName.getText());
-    }
-
-
-    private void txtLastNameActionPerformed(java.awt.event.ActionEvent evt) {
     }
 
     private void txtLastNameFocusGained(java.awt.event.FocusEvent evt) {
@@ -418,20 +390,12 @@ public class RegisterGUI extends JFrame {
         txtLastName.setText(txtLastName.getText().isEmpty() ? "Last Name" : txtLastName.getText());
     }
 
-
-    private void txtUsernameActionPerformed(java.awt.event.ActionEvent evt) {
-    }
-
     private void txtUsernameFocusGained(FocusEvent evt) {
         txtUserName.setText(txtUserName.getText().equals("Username") ? "" : txtUserName.getText());
     }
 
     private void txtUsernameFocusLost(FocusEvent evt) {
         txtUserName.setText(txtUserName.getText().isEmpty() ? "Username" : txtUserName.getText());
-    }
-
-
-    private void txtEmailActionPerformed(java.awt.event.ActionEvent evt) {
     }
 
     private void txtEmailFocusGained(java.awt.event.FocusEvent evt) {
@@ -506,25 +470,4 @@ public class RegisterGUI extends JFrame {
             hidePasswordField(txtConfirmPassword, imgShowConfirmPassword);
         }
     }
-
-    public JTextField getTxtFirstName() {
-        return txtFirstName;
-    }
-
-    public JTextField getTxtLastName() {
-        return txtLastName;
-    }
-    public JTextField getTxtUsername() {
-        return txtUserName;
-    }
-    public JTextField getTxtEmail() {
-        return txtEmail;
-    }
-    public JPasswordField getTxtPassword() {
-        return txtPassword;
-    }
-    public JPasswordField getTxtConfirmPassword() {
-        return txtConfirmPassword;
-    }
-
 }
