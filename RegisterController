@@ -1,73 +1,56 @@
 import javax.swing.*;
+import java.util.function.Function;
 
-public class RegisterController extends JFrame {
+public class RegistrationFormHandler extends JFrame {
 
-    public boolean validateFields() {
+    // Function that takes a message string and shows an error dialog, then returns false
+    private Function<String, Boolean> showError = message -> {
+        JOptionPane.showMessageDialog(this, message, "Error", JOptionPane.ERROR_MESSAGE);
+        return false;
+    };
 
-        RegisterGUI registerGUI = new RegisterGUI();
+    // Validate the input fields and show error messages if any of the validation checks fail
+    public boolean validateFields(String firstName, String lastName, String username, String email, String password, String confirmPassword) {
 
-//        String firstName = registerGUI.getTxtFirstName().getText();
-//        System.out.println(firstName);
-//        return false;
-//    }
-//}
+        // Use ternary statements to check the validity of each text field and shows error message if invalid
+        boolean isValidFirstName = isValidFirstName(firstName) || showError.apply("Please enter a valid First Name (up to 25 characters long and not 'First Name')") && false;
+        boolean isValidLastName = isValidLastName(lastName) || showError.apply("Please enter a valid last name (up to 25 characters long and not 'Last Name')") && false;
+        boolean isValidUsername = isValidUsername(username) || showError.apply("Please enter a valid username (up to 25 characters long and not 'Username')") && false;
+        boolean isValidEmail = isValidEmail(email) || showError.apply("Please enter a valid email address with '@' & '.'") && false;
+        boolean isValidPassword = isValidPassword(password) || showError.apply("Please enter a valid password (at least 8 characters long and containing at least one uppercase letter, one lowercase letter, one number, and one special character)") && false;
+        boolean isValidConfirmPassword = isValidConfirmPassword(password, confirmPassword) || showError.apply("Passwords do not match") && false;
 
-
-        String firstName = registerGUI.getTxtFirstName().getText();
-        String lastName = registerGUI.getTxtLastName().getText();
-        String email = registerGUI.getTxtEmail().getText();
-        String username = registerGUI.getTxtUsername().getText();
-        String password = new String(registerGUI.getTxtPassword().getPassword());
-        String confirmPassword = new String(registerGUI.getTxtConfirmPassword().getPassword());
-
-
-        System.out.println(firstName);
-        System.out.println(lastName);
-        System.out.println(username);
-        System.out.println(email);
-        System.out.println(password);
-        System.out.println(confirmPassword);
-
-        boolean isValidFirstName = firstName.length() <= 25 && !firstName.equalsIgnoreCase("First Name");
-        boolean isValidLastName = lastName.length() <= 25 && !lastName.equalsIgnoreCase("Last Name");
-        boolean isValidEmail = email.matches("[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Z|a-z]{2,}");
-        boolean isValidUsername = username.length() <= 25 && !username.equalsIgnoreCase("Username");
-        boolean isValidPassword = password.length() >= 8 && password.matches("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}$");
-        boolean isValidConfirmPassword = confirmPassword.equals(password);
-
-        if (!isValidFirstName) {
-            showError("Please enter a valid first name (up to 25 characters long and not 'First Name')");
-            return false;
-        }
-        if (!isValidLastName) {
-            showError("Please enter a valid last name (up to 25 characters long and not 'Last Name')");
-            return false;
-        }
-        if (!isValidEmail) {
-            showError("Please enter a valid email address");
-            return false;
-        }
-        if (!isValidUsername) {
-            showError("Please enter a valid username (up to 25 characters long and not 'Username')");
-            return false;
-        }
-        if (!isValidPassword) {
-            showError("Please enter a valid password (at least 8 characters long and containing at least one uppercase letter, one lowercase letter, one number, and one special character)");
-            return false;
-        }
-        if (!isValidConfirmPassword) {
-            showError("Passwords do not match");
-            return false;
-        }
-
-        return true;
+        // Return true if all fields are valid, false otherwise
+        return isValidFirstName && isValidLastName && isValidEmail && isValidUsername && isValidPassword && isValidConfirmPassword;
     }
 
-    private void showError(String message) {
-//        JOptionPane.showMessageDialog(, message, "Error", JOptionPane.ERROR_MESSAGE);
-        System.out.println(message);
-        System.out.println("Lol you got pranked.");
+    // Check if the first name is valid (up to 25 characters and not equal to "First Name")
+    private boolean isValidFirstName(String firstName) {
+        return firstName.length() <= 25 && !firstName.equalsIgnoreCase("First Name");
+    }
 
+    // Check if the last name is valid (up to 25 characters and not equal to "Last Name")
+    private boolean isValidLastName(String lastName) {
+        return lastName.length() <= 25 && !lastName.equalsIgnoreCase("Last Name");
+    }
 
+    // Check if the email is valid (using a regular expression pattern)
+    private boolean isValidEmail(String email) {
+        return email.matches("[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Z|a-z]{2,}");
+    }
+
+    // Check if the username is valid (up to 25 characters and not equal to "Username")
+    private boolean isValidUsername(String username) {
+        return username.length() <= 25 && !username.equalsIgnoreCase("Username");
+    }
+
+    // Check if the password is valid (at least 8 characters, with at least one uppercase letter, one lowercase letter, one number, and one special character)
+    private boolean isValidPassword(String password) {
+        return password.length() >= 8 && password.matches("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}$");
+    }
+
+    // Check if the confirmed password matches the original password
+    private boolean isValidConfirmPassword(String password, String confirmPassword) {
+        return confirmPassword.equals(password);
     }
 }
