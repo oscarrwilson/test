@@ -7,17 +7,18 @@ import java.io.IOException;
 
 public class VerifyAccountGUI extends javax.swing.JFrame {
 
+    // Constructor with identifier parameter
     public VerifyAccountGUI(String identifier) {
+        // Initialize GUI components, set window size and location, and set resizable to false
         initComponents();
         setLocationRelativeTo(null);
         setResizable(false);
         setSize(720, 410);
+        // Set the identifier to the passed value
         this.identifier = identifier;
     }
 
-
-
-
+    // GUI components
     private javax.swing.JPanel ForgotPass;
     private javax.swing.JButton btnContinue;
     private javax.swing.JPanel jPanel1;
@@ -31,8 +32,10 @@ public class VerifyAccountGUI extends javax.swing.JFrame {
     private RegistrationFormHandler registrationFormHandler;
     private String identifier;
 
+    // Method to initialize the GUI components
     private void initComponents() {
 
+        // Create the main panel and its subcomponents
         pnl_bg = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
         ForgotPass = new javax.swing.JPanel();
@@ -46,15 +49,19 @@ public class VerifyAccountGUI extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        // Set the background color to white for the main panel
         pnl_bg.setBackground(new java.awt.Color(255, 255, 255));
 
+        // Set the background color to white for the subpanel
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setLayout(new java.awt.CardLayout());
 
+        // Set the background color to white for the forgot password panel
         ForgotPass.setBackground(new java.awt.Color(255, 255, 255));
 
+        // Initialize the continue button with its properties
         btnContinue.setBackground(new java.awt.Color(0, 153, 153));
-        btnContinue.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        btnContinue.setFont(new java.awt.Font("Tahoma", 1, 14));
         btnContinue.setForeground(new java.awt.Color(255, 255, 255));
         btnContinue.setText("Continue");
         btnContinue.setBorder(null);
@@ -65,16 +72,20 @@ public class VerifyAccountGUI extends javax.swing.JFrame {
             }
         });
 
+        // Set the font and text color for the title label
         lblTitleText.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         lblTitleText.setForeground(new java.awt.Color(102, 102, 102));
         lblTitleText.setText("Verify Your Account");
 
+// Set the font and text color for the text field
         txtIdentifier.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
         txtIdentifier.setForeground(new java.awt.Color(102, 102, 102));
         txtIdentifier.setText("Enter One-Time Password");
         txtIdentifier.setToolTipText("");
         txtIdentifier.setBorder(null);
         txtIdentifier.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+
+// Add focus listener to the text field to display the default text when the text field is empty
         txtIdentifier.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 txtIdentifierFocusGained(evt);
@@ -84,26 +95,36 @@ public class VerifyAccountGUI extends javax.swing.JFrame {
                 txtIdentifierFocusLost(evt);
             }
         });
+
+// Add action listener to the text field to handle user input
         txtIdentifier.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtIdentifierActionPerformed(evt);
             }
         });
 
+// Set the background color for the separator
         sept_Identifier.setBackground(new java.awt.Color(255, 255, 255));
+// Set the foreground color for the separator
         sept_Identifier.setForeground(new java.awt.Color(0, 153, 153));
+// Align the separator to the center
         sept_Identifier.setAlignmentX(sept_Identifier.CENTER_ALIGNMENT);
 
+// Set the font for the first block of text
         txtBlock1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         txtBlock1.setText("Please Enter The One-Time Code Sent to");
         txtBlock1.setToolTipText("");
+// Center the first block of text
         txtBlock1.setHorizontalAlignment(txtBlock1.CENTER);
 
+// Set the font and text for the second block of text
         txtBlock2.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
         String fileLocation = FileAccess.createOneTimePasswordFile();
         txtBlock2.setText("Your File Location - " + fileLocation);
+// Center the second block of text
         txtBlock2.setHorizontalAlignment(txtBlock2.CENTER);
 
+// Set the font and text for the "Back to Login" label
         txtBackToLogin.setFont(new Font("Tahoma", 0, 13)); // NOI18N
         txtBackToLogin.setText("Back To Login");
 
@@ -212,23 +233,26 @@ public class VerifyAccountGUI extends javax.swing.JFrame {
                 dispose();
             }
         });
-
+// Add a mouse listener to txtBlock2 to open the password file location on click
         txtBlock2.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
                 try {
+// Open the file location on click
                     Desktop.getDesktop().open(new File(fileLocation));
                 } catch (IOException ex) {
                     System.err.println("Failed to open password file: " + ex.getMessage());
                 }
             }
 
+            // Change the text color and cursor when the mouse enters txtBlock2
             @Override
             public void mouseEntered(MouseEvent e) {
                 txtBlock2.setForeground(Color.BLUE);
                 txtBlock2.setCursor(new Cursor(Cursor.HAND_CURSOR));
             }
 
+            // Change the text color and cursor back to default when the mouse exits txtBlock2
             @Override
             public void mouseExited(MouseEvent e) {
                 txtBlock2.setForeground(Color.BLACK);
@@ -236,44 +260,43 @@ public class VerifyAccountGUI extends javax.swing.JFrame {
             }
         });
 
-
-        // Create a new RegisterController object
-//            registrationFormHandler = new RegistrationFormHandler();
-
-        // Add an action listener to the btnRegister button using a lambda expression
+// Add an action listener to the btnContinue button using a lambda expression
         btnContinue.addActionListener(e -> {
-                String txtIdentifierValue = txtIdentifier.getText();
-                if (FileParser.verifyOneTimePassword(txtIdentifierValue)) {
-                    // Delete the password file if the entered password is correct
-                    FileAccess.deleteFile("myOneTimePassword.txt");
+            String txtIdentifierValue = txtIdentifier.getText();
+            if (FileParser.verifyOneTimePassword(txtIdentifierValue)) {
+// Delete the password file if the entered password is correct
+                FileAccess.deleteFile("myOneTimePassword.txt");    // Create a new ResetPasswordGUI window and show it
+                ResetPasswordGUI resetPasswordGUI = new ResetPasswordGUI(identifier);
+                resetPasswordGUI.setVisible(true);
+                dispose(); // Close the VerifyAccountGUI window
 
-                    ResetPasswordGUI resetPasswordGUI = new ResetPasswordGUI(identifier);
-                    resetPasswordGUI.setVisible(true);
-                    dispose();
+            } else {
+                // Show an error message if the entered password is incorrect
+                JOptionPane.showMessageDialog(
+                        null,
+                        "<html><div style='text-align: center;'>The one-time password entered is incorrect.<br>Reopen the text file & try again.</div></html>",
+                        "Incorrect Password",
+                        JOptionPane.ERROR_MESSAGE
+                );
+            }
+        });
+    }
 
-                } else {
-                    // Show an error message if the entered password is incorrect
-                    JOptionPane.showMessageDialog(
-                            null,
-                            "<html><div style='text-align: center;'>The one-time password entered is incorrect.<br>Reopen the text file & try again.</div></html>",
-                            "Incorrect Password",
-                            JOptionPane.ERROR_MESSAGE
-                    );
-                }
-            });
-        }
-
+    // Remove unnecessary action performed method
     private void txtIdentifierActionPerformed(java.awt.event.ActionEvent evt) {
     }
 
+    // Clear default text when txtIdentifier gains focus
     private void txtIdentifierFocusGained(java.awt.event.FocusEvent evt) {
         txtIdentifier.setText(txtIdentifier.getText().equals("Enter One-Time Password") ? "" : txtIdentifier.getText());
     }
 
+    // Restore default text if txtIdentifier loses focus and is empty
     private void txtIdentifierFocusLost(java.awt.event.FocusEvent evt) {
         txtIdentifier.setText(txtIdentifier.getText().isEmpty() ? "Enter One-Time Password" : txtIdentifier.getText());
     }
 
+    // Remove unnecessary action performed method
     private void btnContinueActionPerformed(java.awt.event.ActionEvent evt) {
     }
 }
