@@ -103,10 +103,10 @@ public class FileParser {
         try {
             BufferedReader reader = new BufferedReader(new FileReader("login.txt"));
             String line;
-// Read each line of the file
+            // Read each line of the file
             while ((line = reader.readLine()) != null) {
                 String[] parts = line.split(",");
-// Check if the identifier matches the username or email in the current line
+                // Check if the identifier matches the username or email in the current line
                 if (parts[2].equals(identifier) || parts[3].equals(identifier)) {
                     password = parts[4];
                     break;
