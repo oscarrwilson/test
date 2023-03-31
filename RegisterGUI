@@ -14,6 +14,7 @@ public class RegisterGUI extends JFrame {
 
     // Boolean to determine if password is currently shown or hidden
     private boolean isPasswordShown = false;
+    private boolean isConfirmPasswordShown = false;
 
     // RegisterController contains all business logic for this GUI...
     private RegistrationFormHandler registrationFormHandler;
@@ -43,15 +44,15 @@ public class RegisterGUI extends JFrame {
     };
 
     // Creates a default text component with a placeholder text and focus adapter
-    private JComponent createDefaultComponent(String defaultText, FocusAdapter focusAdapter, boolean isPasswordField) {
-        JComponent component = isPasswordField ? new JPasswordField(defaultText) : new JTextField(defaultText);
-        if (isPasswordField) ((JPasswordField) component).setEchoChar((char) 0);
-
+    private JComponent createDefaultComponent(String defaultText, FocusAdapter focusAdapter, boolean isTextField) {
+        JComponent component = isTextField ? new JTextField(defaultText) : new JPasswordField(defaultText);
         component.setName(defaultText);
         component.setFont(new Font("Tahoma", Font.PLAIN, 13));
         component.setForeground(Color.GRAY);
         component.setBorder(BorderFactory.createEmptyBorder());
-        component.addFocusListener(focusAdapter);
+        if (isTextField) {
+            component.addFocusListener(focusAdapter);
+        }
         return component;
     }
 
@@ -65,14 +66,39 @@ public class RegisterGUI extends JFrame {
         JPanel jPanel1 = new JPanel();
 
         // Creates all text components with default values and focus adapters
-        txtFirstName = (JTextField) createDefaultComponent("First Name", defaultFocusAdapter, false);
-        txtLastName = (JTextField) createDefaultComponent("Last Name", defaultFocusAdapter, false);
-        txtUserName = (JTextField) createDefaultComponent("Username", defaultFocusAdapter, false);
-        txtEmail = (JTextField) createDefaultComponent("Email Address", defaultFocusAdapter, false);
-        txtPassword = (JPasswordField) createDefaultComponent("Enter your password", defaultFocusAdapter, true);
-        txtConfirmPassword = (JPasswordField) createDefaultComponent("Re-enter your password", defaultFocusAdapter, true);
+        txtFirstName = (JTextField) createDefaultComponent("First Name", defaultFocusAdapter, true);
+        txtLastName = (JTextField) createDefaultComponent("Last Name", defaultFocusAdapter, true);
+        txtUserName = (JTextField) createDefaultComponent("Username", defaultFocusAdapter, true);
+        txtEmail = (JTextField) createDefaultComponent("Email Address", defaultFocusAdapter, true);
+        txtPassword = (JPasswordField) createDefaultComponent("Enter your password", null, false);
+        txtConfirmPassword = (JPasswordField) createDefaultComponent("Re-enter your password", null, false);
         imgShowPassword = new JLabel();
         imgShowConfirmPassword = new JLabel();
+
+
+        txtPassword.setEchoChar((char) 0);
+        txtPassword.addFocusListener(new java.awt.event.FocusAdapter() {
+
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtPasswordFocusGained(evt);
+            }
+
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtPasswordFocusLost(evt);
+            }
+        });
+
+        txtConfirmPassword.setEchoChar((char) 0);
+        txtConfirmPassword.addFocusListener(new java.awt.event.FocusAdapter() {
+
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtConfirmPasswordFocusGained(evt);
+            }
+
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtConfirmPasswordFocusLost(evt);
+            }
+        });
 
         JSeparator sepFirstName = new JSeparator();
         JSeparator sepLastName = new JSeparator();
@@ -98,17 +124,17 @@ public class RegisterGUI extends JFrame {
         jPanel1.setLayout(new CardLayout());
 
         // Sets the icon and mouse listener for the show password button
-        imgShowPassword.setIcon(new ImageIcon(getClass().getResource("img_showPwd.png")));
-        imgShowPassword.addMouseListener(new MouseAdapter() {
-            public void mousePressed(MouseEvent evt) {
+        imgShowPassword.setIcon(new javax.swing.ImageIcon(getClass().getResource("img_ShowPass.png")));
+        imgShowPassword.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
                 imgShowPasswordMousePressed(evt);
             }
         });
 
-        // Sets the icon and mouse listener for the show confirm password button
-        imgShowConfirmPassword.setIcon(new ImageIcon(getClass().getResource("img_showPwd.png")));
-        imgShowConfirmPassword.addMouseListener(new MouseAdapter() {
-            public void mousePressed(MouseEvent evt) {
+        // Sets the icon and mouse listener for the show password button
+        imgShowConfirmPassword.setIcon(new javax.swing.ImageIcon(getClass().getResource("img_ShowPass.png")));
+        imgShowConfirmPassword.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
                 imgShowConfirmPasswordMousePressed(evt);
             }
         });
@@ -302,7 +328,7 @@ public class RegisterGUI extends JFrame {
             String rPS = new String(confirmPassword);
 
             // Validate the input using the registrationFormHandler object
-            if (registrationFormHandler.validateFields(fNS, lNS, uS, eS, pS, rPS) == true) {
+            if (registrationFormHandler.validateFields(fNS, lNS, uS, eS, pS, rPS)) {
                 // Create a new SuccessGUI window if input is valid
                 SuccessGUI successGUI = new SuccessGUI();
                 // Set the new window to be visible
@@ -350,67 +376,71 @@ public class RegisterGUI extends JFrame {
         txtEmail.setText(txtEmail.getText().isEmpty() ? "Email Address" : txtEmail.getText());
     }
 
-    // Handle focus events on password fields, clearing default text and hiding/showing the password as needed.
-    private void handlePasswordFieldFocus(JPasswordField field) {
-        if (field.getText().equals("Enter your password") || field.getText().equals("Re-enter your password")) {
-            field.setText("");
-            if (!isPasswordShown) field.setEchoChar('*');
+
+    private void txtPasswordFocusGained(FocusEvent evt) {
+        if (txtPassword.getText().equals("Enter your password")) {
+            txtPassword.setText("");
+            if (!isPasswordShown) {
+                txtPassword.setEchoChar('*'); // Show password when text is cleared, but only if it was previously hidden
+            }
         }
     }
 
-    // Handle blur events on password fields, restoring default text and hiding the password.
-    private void handlePasswordFieldBlur(JPasswordField field) {
-        if (field.getPassword().length == 0) {
-            field.setText("Enter your password");
-            field.setEchoChar((char) 0);
+    private void txtPasswordFocusLost(FocusEvent evt) {
+        if (txtPassword.getPassword().length == 0) {
+            txtPassword.setText("Enter your password");
+            txtPassword.setEchoChar((char) 0); // Hide password when default text is restored
         }
-        field.selectAll();
+        // Select all text to hide password when focus is lost
+        txtPassword.selectAll();
     }
 
-    // Show or hide the password in a password field and change the icon.
-    private void togglePasswordField(JPasswordField field, JLabel icon) {
+    private void imgShowPasswordMousePressed(MouseEvent evt) {
+        isPasswordShown = !isPasswordShown;
         if (isPasswordShown) {
-            if (!field.getText().equals(field.getName())) {
-                field.setEchoChar((char) 0);
-            }
-            icon.setIcon(new javax.swing.ImageIcon(getClass().getResource("img_uname.png")));
+            // If showPwd is clicked, show the user-entered password
+            txtPassword.setEchoChar((char) 0);
+            imgShowPassword.setIcon(new ImageIcon(getClass().getResource("img_HidePass.png")));
         } else {
-            if (!field.getText().equals(field.getName())) {
-                field.setEchoChar('*');
+            // If hidePwd is clicked, obscure the password by default
+            if (!txtPassword.getText().equals("Enter your password")) {
+                txtPassword.setEchoChar('*');
             }
-            icon.setIcon(new javax.swing.ImageIcon(getClass().getResource("img_showPwd.png")));
+            imgShowPassword.setIcon(new ImageIcon(getClass().getResource("img_ShowPass.png")));
         }
     }
 
-    // Handle focus events on the password field by calling the handlePasswordFieldFocus method.
-    private void txtPasswordFocusGained(java.awt.event.FocusEvent evt) {
-        handlePasswordFieldFocus(txtPassword);
+
+    private void txtConfirmPasswordFocusGained(FocusEvent evt) {
+        if (txtConfirmPassword.getText().equals("Re-enter your password")) {
+            txtConfirmPassword.setText("");
+            if (!isConfirmPasswordShown) {
+                txtConfirmPassword.setEchoChar('*'); // Show password when text is cleared, but only if it was previously hidden
+            }
+        }
     }
 
-    // Handle blur events on the password field by calling the handlePasswordFieldBlur method.
-    private void txtPasswordFocusLost(java.awt.event.FocusEvent evt) {
-        handlePasswordFieldBlur(txtPassword);
+    private void txtConfirmPasswordFocusLost(FocusEvent evt) {
+        if (txtConfirmPassword.getPassword().length == 0) {
+            txtConfirmPassword.setText("Re-enter your password");
+            txtConfirmPassword.setEchoChar((char) 0); // Hide password when default text is restored
+        }
+        // Select all text to hide password when focus is lost
+        txtConfirmPassword.selectAll();
     }
 
-    // Handle focus events on the confirm password field by calling the handlePasswordFieldFocus method.
-    private void txtConfirmPasswordFocusGained(java.awt.event.FocusEvent evt) {
-        handlePasswordFieldFocus(txtConfirmPassword);
-    }
-
-    // Handle blur events on the confirm password field by calling the handlePasswordFieldBlur method.
-    private void txtConfirmPasswordFocusLost(java.awt.event.FocusEvent evt) {
-        handlePasswordFieldBlur(txtConfirmPassword);
-    }
-
-    // Toggle the visibility of the password in the password field when the "show password" icon is clicked.
-    private void imgShowPasswordMousePressed(java.awt.event.MouseEvent evt) {
-        isPasswordShown = !isPasswordShown;
-        togglePasswordField(txtPassword, imgShowPassword);
-    }
-
-    // Toggle the visibility of the password in the confirm password field when the "show password" icon is clicked.
-    private void imgShowConfirmPasswordMousePressed(java.awt.event.MouseEvent evt) {
-        isPasswordShown = !isPasswordShown;
-        togglePasswordField(txtConfirmPassword, imgShowConfirmPassword);
+    private void imgShowConfirmPasswordMousePressed(MouseEvent evt) {
+        isConfirmPasswordShown = !isConfirmPasswordShown;
+        if (isConfirmPasswordShown) {
+            // If showPwd is clicked, show the user-entered password
+            txtConfirmPassword.setEchoChar((char) 0);
+            imgShowConfirmPassword.setIcon(new ImageIcon(getClass().getResource("img_HidePass.png")));
+        } else {
+            // If hidePwd is clicked, obscure the password by default
+            if (!txtConfirmPassword.getText().equals("Re-enter your password")) {
+                txtConfirmPassword.setEchoChar('*');
+            }
+            imgShowConfirmPassword.setIcon(new ImageIcon(getClass().getResource("img_ShowPass.png")));
+        }
     }
 }
