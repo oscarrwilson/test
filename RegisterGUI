@@ -342,7 +342,7 @@ public class RegisterGUI extends JFrame {
         });
     }
 
-    // Methoods below handle focus events of text fields to show default text when empty, and remove it when field gains focus.
+    // Methods below handle focus events of text fields to show default text when empty, and remove it when field gains focus.
 // Restore default text when field loses focus and no input entered.
     private void txtFirstNameFocusGained(FocusEvent evt) {
         txtFirstName.setText(txtFirstName.getText().equals("First Name") ? "" : txtFirstName.getText());
@@ -376,33 +376,34 @@ public class RegisterGUI extends JFrame {
         txtEmail.setText(txtEmail.getText().isEmpty() ? "Email Address" : txtEmail.getText());
     }
 
-
+    // This code defines several methods that handle the focus events of the password fields and show/hide password images in the RegisterGUI.
     private void txtPasswordFocusGained(FocusEvent evt) {
+        // When the password field gains focus and it contains the default text, clear the text and show password if necessary
         if (txtPassword.getText().equals("Enter your password")) {
             txtPassword.setText("");
             if (!isPasswordShown) {
-                txtPassword.setEchoChar('*'); // Show password when text is cleared, but only if it was previously hidden
+                txtPassword.setEchoChar('*');
             }
         }
     }
 
     private void txtPasswordFocusLost(FocusEvent evt) {
+        // When the password field loses focus and it is empty, restore the default text and hide the password
         if (txtPassword.getPassword().length == 0) {
             txtPassword.setText("Enter your password");
-            txtPassword.setEchoChar((char) 0); // Hide password when default text is restored
+            txtPassword.setEchoChar((char) 0);
         }
         // Select all text to hide password when focus is lost
         txtPassword.selectAll();
     }
 
     private void imgShowPasswordMousePressed(MouseEvent evt) {
+        // When the show password image is clicked, toggle the isPasswordShown flag and show/hide the password
         isPasswordShown = !isPasswordShown;
         if (isPasswordShown) {
-            // If showPwd is clicked, show the user-entered password
             txtPassword.setEchoChar((char) 0);
             imgShowPassword.setIcon(new ImageIcon(getClass().getResource("img_HidePass.png")));
         } else {
-            // If hidePwd is clicked, obscure the password by default
             if (!txtPassword.getText().equals("Enter your password")) {
                 txtPassword.setEchoChar('*');
             }
@@ -410,33 +411,33 @@ public class RegisterGUI extends JFrame {
         }
     }
 
-
     private void txtConfirmPasswordFocusGained(FocusEvent evt) {
+        // When the confirm password field gains focus and it contains the default text, clear the text and show password if necessary
         if (txtConfirmPassword.getText().equals("Re-enter your password")) {
             txtConfirmPassword.setText("");
             if (!isConfirmPasswordShown) {
-                txtConfirmPassword.setEchoChar('*'); // Show password when text is cleared, but only if it was previously hidden
+                txtConfirmPassword.setEchoChar('*');
             }
         }
     }
 
     private void txtConfirmPasswordFocusLost(FocusEvent evt) {
+        // When the confirm password field loses focus and it is empty, restore the default text and hide the password
         if (txtConfirmPassword.getPassword().length == 0) {
             txtConfirmPassword.setText("Re-enter your password");
-            txtConfirmPassword.setEchoChar((char) 0); // Hide password when default text is restored
+            txtConfirmPassword.setEchoChar((char) 0);
         }
         // Select all text to hide password when focus is lost
         txtConfirmPassword.selectAll();
     }
 
     private void imgShowConfirmPasswordMousePressed(MouseEvent evt) {
+        // When the show password image for confirm password is clicked, toggle the isConfirmPasswordShown flag and show/hide the password
         isConfirmPasswordShown = !isConfirmPasswordShown;
         if (isConfirmPasswordShown) {
-            // If showPwd is clicked, show the user-entered password
             txtConfirmPassword.setEchoChar((char) 0);
             imgShowConfirmPassword.setIcon(new ImageIcon(getClass().getResource("img_HidePass.png")));
         } else {
-            // If hidePwd is clicked, obscure the password by default
             if (!txtConfirmPassword.getText().equals("Re-enter your password")) {
                 txtConfirmPassword.setEchoChar('*');
             }
