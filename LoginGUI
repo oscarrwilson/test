@@ -3,17 +3,21 @@ import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
+// Define the LoginGUI class which extends the javax.swing.JFrame class
 public class LoginGUI extends javax.swing.JFrame {
 
+    // Constructor method for the LoginGUI class
     public LoginGUI() {
-        initComponents();
-        setResizable(false);
-        setSize(720, 410);
-        setLocationRelativeTo(null); // center the window on the screen
+        initComponents(); // Initialize all components
+        setResizable(false); // Disable resizing of the window
+        setSize(720, 410); // Set the size of the window
+        setLocationRelativeTo(null); // Center the window on the screen
     }
 
+    // Define a boolean variable to track if the password is shown
     private boolean isPasswordShown = false;
 
+    // Declare all components of the LoginGUI class
     private javax.swing.JButton btn_login;
     private javax.swing.JLabel img_pass;
     private javax.swing.JLabel img_showPwd;
@@ -29,9 +33,11 @@ public class LoginGUI extends javax.swing.JFrame {
     private javax.swing.JPasswordField txt_pwd;
     private javax.swing.JTextField txt_uname;
 
+    // Method to initialize all components of the LoginGUI class
     private void initComponents() {
 
-        pnl_bg = new javax.swing.JPanel();  // Main panel containing all components
+        // Create the main panel that contains all components
+        pnl_bg = new javax.swing.JPanel();
         jPanel = new javax.swing.JPanel();
 
         // Create the Login panel and its components
@@ -48,26 +54,27 @@ public class LoginGUI extends javax.swing.JFrame {
         lbl_forgotPwd = new javax.swing.JLabel();
         lbl_newAcc = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE); // Set the default close operation
 
-        pnl_bg.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel.setLayout(new java.awt.CardLayout());
+        pnl_bg.setBackground(new java.awt.Color(255, 255, 255)); // Set the background color of the main panel
+        jPanel.setBackground(new java.awt.Color(255, 255, 255)); // Set the background color of the sub panel
+        jPanel.setLayout(new java.awt.CardLayout()); // Set the layout of the sub panel
 
-        login.setBackground(new java.awt.Color(255, 255, 255));
+        login.setBackground(new java.awt.Color(255, 255, 255)); // Set the background color of the Login panel
 
-        txt_uname.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
+        // Create the Username text field and its properties
+        txt_uname.setFont(new java.awt.Font("Tahoma", 0, 13));
         txt_uname.setForeground(new java.awt.Color(102, 102, 102));
         txt_uname.setText("Username");
         txt_uname.setToolTipText("");
         txt_uname.setBorder(null);
         txt_uname.addFocusListener(new java.awt.event.FocusAdapter() {
 
-            public void focusGained(java.awt.event.FocusEvent evt) {
+            public void focusGained(java.awt.event.FocusEvent evt) { // Define behavior when the field gains focus
                 txt_unameFocusGained(evt);
             }
 
-            public void focusLost(java.awt.event.FocusEvent evt) {
+            public void focusLost(java.awt.event.FocusEvent evt) { // Define behavior when the field loses focus
                 txt_unameFocusLost(evt);
             }
         });
@@ -77,55 +84,55 @@ public class LoginGUI extends javax.swing.JFrame {
             }
         });
 
-        txt_pwd.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
+        // Create the Password text field and its properties
+        txt_pwd.setFont(new java.awt.Font("Tahoma", 0, 13));
         txt_pwd.setForeground(new java.awt.Color(102, 102, 102));
         txt_pwd.setText("Enter your password");
         txt_pwd.setBorder(null);
         txt_pwd.setEchoChar((char) 0);
         txt_pwd.addFocusListener(new java.awt.event.FocusAdapter() {
-
-            public void focusGained(java.awt.event.FocusEvent evt) {
+            public void focusGained(java.awt.event.FocusEvent evt) { // Define behavior when the field gains focus
                 txt_passFocusGained(evt);
             }
 
-            public void focusLost(java.awt.event.FocusEvent evt) {
+            public void focusLost(java.awt.event.FocusEvent evt) { // Define behavior when the field loses focus
                 txt_passFocusLost(evt);
             }
         });
 
-        sept_uname.setBackground(new java.awt.Color(255, 255, 255));
-        sept_uname.setForeground(new java.awt.Color(0, 153, 153));
+        sept_uname.setBackground(new java.awt.Color(255, 255, 255)); // Set the background color of the Username separator
+        sept_uname.setForeground(new java.awt.Color(0, 153, 153)); // Set the foreground color of the Username separator
 
-        sept_pwd.setBackground(new java.awt.Color(255, 255, 255));
-        sept_pwd.setForeground(new java.awt.Color(0, 153, 153));
+        sept_pwd.setBackground(new java.awt.Color(255, 255, 255)); // Set the background color of the Password separator
+        sept_pwd.setForeground(new java.awt.Color(0, 153, 153)); // Set the foreground color of the Password separator
 
-        img_uname.setIcon(new javax.swing.ImageIcon(getClass().getResource("img_Username.png"))); // NOI18N
-        img_uname.setPreferredSize(new java.awt.Dimension(200, 200));
+        img_uname.setIcon(new javax.swing.ImageIcon(getClass().getResource("img_Username.png"))); // Set the icon for the Username image label
+        img_uname.setPreferredSize(new java.awt.Dimension(200, 200)); // Set the preferred size of the Username image label
 
-        img_pass.setIcon(new javax.swing.ImageIcon(getClass().getResource("img_Pass.png"))); // NOI18N
+        img_pass.setIcon(new javax.swing.ImageIcon(getClass().getResource("img_Pass.png"))); // Set the icon for the Password image label
 
-        btn_login.setBackground(new java.awt.Color(0, 153, 153));
-        btn_login.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        btn_login.setForeground(new java.awt.Color(255, 255, 255));
-        btn_login.setText("Login");
-        btn_login.addActionListener(new java.awt.event.ActionListener() {
+        btn_login.setBackground(new java.awt.Color(0, 153, 153)); // Set the background color of the Login button
+        btn_login.setFont(new java.awt.Font("Tahoma", 1, 14)); // Set the font of the Login button
+        btn_login.setForeground(new java.awt.Color(255, 255, 255)); // Set the text color of the Login button
+        btn_login.setText("Login"); // Set the text of the Login button
+        btn_login.addActionListener(new java.awt.event.ActionListener() { // Add an action listener to the Login button
 
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_loginActionPerformed(evt);
+                btn_loginActionPerformed(evt); // Define behavior when the Login button is clicked
             }
         });
 
-        lbl_Login.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        lbl_Login.setForeground(new java.awt.Color(102, 102, 102));
-        lbl_Login.setText("Login");
+        lbl_Login.setFont(new java.awt.Font("Tahoma", 0, 24)); // Set the font of the Login label
+        lbl_Login.setForeground(new java.awt.Color(102, 102, 102)); // Set the text color of the Login label
+        lbl_Login.setText("Login"); // Set the text of the Login label
 
-        lbl_forgotPwd.setText("Forgot Password?");
+        lbl_forgotPwd.setText("Forgot Password?"); // Set the text of the Forgot Password label
 
-        lbl_newAcc.setText("Create New Account");
+        lbl_newAcc.setText("Create New Account"); // Set the text of the Create New Account label
 
-        img_showPwd.setIcon(new javax.swing.ImageIcon(getClass().getResource("img_ShowPass.png")));
-        img_showPwd.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent evt) {
+        img_showPwd.setIcon(new javax.swing.ImageIcon(getClass().getResource("img_ShowPass.png"))); // Set the icon for the Show Password image label
+        img_showPwd.addMouseListener(new java.awt.event.MouseAdapter() { // Add a mouse listener to the Show Password image label
+            public void mousePressed(java.awt.event.MouseEvent evt) { // Define behavior when the image is pressed
                 img_showPwdMousePressed(evt);
             }
         });
@@ -217,50 +224,66 @@ public class LoginGUI extends javax.swing.JFrame {
 
         pack();
 
+// Add a mouse listener to lbl_newAcc label
         lbl_newAcc.addMouseListener(new MouseAdapter() {
+            // Define behavior when the mouse enters lbl_newAcc
             public void mouseEntered(MouseEvent e) {
-                // Change label color when mouse enters
+                // Change the label's color to blue and set the cursor to a hand cursor
                 lbl_newAcc.setForeground(Color.BLUE);
                 lbl_newAcc.setCursor(new Cursor(Cursor.HAND_CURSOR));
             }
 
+            // Define behavior when the mouse exits lbl_newAcc
             public void mouseExited(MouseEvent e) {
-                // Change label color when mouse exits
+                // Change the label's color back to black and set the cursor back to the default cursor
                 lbl_newAcc.setForeground(Color.BLACK);
                 lbl_newAcc.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
             }
 
+            // Define behavior when lbl_newAcc is clicked
             public void mouseClicked(MouseEvent e) {
-                // Open register window when label is clicked
+                // Create a new RegisterGUI window
                 RegisterGUI regGUI = new RegisterGUI();
+                // Set the new window to be visible
                 regGUI.setVisible(true);
-                dispose(); // Close the current LoginGUI window
+                // Close the current window (LoginGUI)
+                dispose();
             }
         });
 
+        // Add a mouse listener to lbl_forgotPwd label
         lbl_forgotPwd.addMouseListener(new MouseAdapter() {
+
+            // Define behavior when the mouse enters lbl_forgotPwd
             public void mouseEntered(MouseEvent e) {
-                // Change label color when mouse enters
+                // Change the label's color to blue and set the cursor to a hand cursor
                 lbl_forgotPwd.setForeground(Color.BLUE);
                 lbl_forgotPwd.setCursor(new Cursor(Cursor.HAND_CURSOR));
             }
 
+            // Define behavior when the mouse exits lbl_forgotPwd
             public void mouseExited(MouseEvent e) {
-                // Change label color when mouse exits
+                // Change the label's color back to black and set the cursor back to the default cursor
                 lbl_forgotPwd.setForeground(Color.BLACK);
                 lbl_forgotPwd.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
             }
 
+            // Define behavior when lbl_forgotPwd is clicked
             public void mouseClicked(MouseEvent e) {
-                // Open Forgot Password window when label is clicked
+                // Create a new ForgotPasswordGUI window
                 ForgotPasswordGUI forPassGui = new ForgotPasswordGUI();
+                // Set the new window to be visible
                 forPassGui.setVisible(true);
-                dispose(); // Close the current LoginGUI window
+                // Close the current window (LoginGUI)
+                dispose();
             }
         });
+
     }
 
+    // Define behavior when the btn_login button is clicked
     private void btn_loginActionPerformed(java.awt.event.ActionEvent evt) {
+        // Get the entered username and password
         String username = txt_uname.getText().trim();
         String password = new String(txt_pwd.getPassword()).trim();
         // Parse the file to check if the entered username and password combination exists
@@ -268,10 +291,11 @@ public class LoginGUI extends javax.swing.JFrame {
         boolean isUserValid = fileParser.checkUsernameAndPassword(username, password);
 
         if (isUserValid) {
-            // If details correct
+            // If the user is valid, create a new LoadingGUI window and simulate a login
             LoadingGUI loadingGUI = new LoadingGUI();
             loadingGUI.setVisible(true);
-            dispose(); // Close the current LoginGUI window
+            // Close the current window (LoginGUI)
+            dispose();
 
             loadingGUI.simulateLogin();
         } else {
@@ -280,18 +304,20 @@ public class LoginGUI extends javax.swing.JFrame {
         }
     }
 
-
     private void txt_unameActionPerformed(java.awt.event.ActionEvent evt) {
     }
 
     private void txt_unameFocusGained(java.awt.event.FocusEvent evt) {
+        // Clear the default text when the text field gains focus
         txt_uname.setText(txt_uname.getText().equals("Username") ? "" : txt_uname.getText());
     }
 
+    // Define behavior when the focus is lost from the username text field
     private void txt_unameFocusLost(java.awt.event.FocusEvent evt) {
         txt_uname.setText(txt_uname.getText().isEmpty() ? "Username" : txt_uname.getText());
     }
 
+    // Define behavior when the focus is gained on the password text field
     private void txt_passFocusGained(java.awt.event.FocusEvent evt) {
         if (txt_pwd.getText().equals("Enter your password")) {
             txt_pwd.setText("");
@@ -301,6 +327,7 @@ public class LoginGUI extends javax.swing.JFrame {
         }
     }
 
+    // Define behavior when the focus is lost from the password text field
     private void txt_passFocusLost(java.awt.event.FocusEvent evt) {
         if (txt_pwd.getPassword().length == 0) {
             txt_pwd.setText("Enter your password");
@@ -310,6 +337,7 @@ public class LoginGUI extends javax.swing.JFrame {
         txt_pwd.selectAll();
     }
 
+    // Define behavior when the show password icon is clicked
     private void img_showPwdMousePressed(java.awt.event.MouseEvent evt) {
         isPasswordShown = !isPasswordShown;
         if (isPasswordShown) {
