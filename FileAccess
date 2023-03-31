@@ -1,0 +1,187 @@
+import java.io.*;
+import java.nio.file.Files;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
+import java.util.Scanner;
+public class FileAccess {
+
+    // string value passed as "example,123"
+    // used for leaderboard (leaderboard.txt) and register user(login.txt)
+    public static void writeToFile(String value, String fileName) {
+        try {
+            File file = new File(fileName);
+            FileWriter fw = new FileWriter(file, true);
+            BufferedWriter bw = new BufferedWriter(fw);
+            bw.write(value + "\n");
+            bw.close();
+            fw.close();
+        } catch (IOException e) {
+            System.out.println("An error occurred while writing to the file.");
+            e.printStackTrace();
+        }
+    }
+
+    public static String getLeaderboard() {
+
+        try {
+            File file = new File("leaderboard.txt");
+            Scanner scanner = new Scanner(file);
+
+            List<String> teamNames = new ArrayList<>();
+            List<Double> scores = new ArrayList<>();
+
+            // get name and score from file store in two arrayLists
+            while (scanner.hasNextLine()) {
+                String[] parts = scanner.nextLine().split(",");
+                teamNames.add(parts[0]);
+                scores.add(Double.parseDouble(parts[1]));
+            }
+
+            int size = scores.size();
+            //sort score and name based on score
+            for (int i = 0; i < size - 1; i++) {
+                for (int j = i + 1; j < size; j++) {
+                    if (scores.get(i) < scores.get(j)) {
+                        // update both lists
+                        double tempScore = scores.get(i);
+                        scores.set(i, scores.get(j));
+                        scores.set(j, tempScore);
+
+                        String tempTeam = teamNames.get(i);
+                        teamNames.set(i, teamNames.get(j));
+                        teamNames.set(j, tempTeam);
+                    }
+                }
+            }
+
+            // display team name and score for highest scoring teams
+            String leaderboard = "Leaderboard:\n";
+            for (int i = 0; i < Math.min(size, 3); i++) { // 3 highest scoring teams
+                leaderboard+=(i + 1) + ". " + teamNames.get(i) + " - Score: " + scores.get(i)+"\n";
+            }
+
+            scanner.close();
+            return leaderboard;//return string to display in label
+        } catch (IOException e) {
+            System.out.println("Error reading file");
+        }
+        return null;
+    }
+
+    // get the current working directory
+    public static String getCurrentDirectory() {
+        return System.getProperty("user.dir");
+    }
+
+    public static String createOneTimePasswordFile() {
+        // Generate a random integer between 100000 and 999999
+        Random random = new Random();
+        int oneTimePassword = random.nextInt(900000) + 100000;
+
+        // Create the file
+        File file = new File("OneTimePassword.txt");
+
+        // Write the password to the file
+        try (PrintWriter writer = new PrintWriter(file)) {
+            writer.println(oneTimePassword);
+        } catch (FileNotFoundException e) {
+            System.err.println("Failed to create password file: " + e.getMessage());
+        }
+
+        return file.getAbsolutePath();
+    }
+
+    public static boolean deleteFile(String filePath) {
+        File file = new File(filePath);
+        if (file.exists()) {
+            try {
+                Files.delete(file.toPath());
+                if (isMacOS()) {
+                    // Close TextEdit if it is running
+                    String[] checkCmd = { "osascript", "-e", "tell app \"System Events\" to count (every process whose name is \"TextEdit\")" };
+                    Process checkProcess = Runtime.getRuntime().exec(checkCmd);
+                    int count = Integer.parseInt(new String(checkProcess.getInputStream().readAllBytes()).trim());
+                    if (count > 0) {
+                        String[] closeCmd = { "osascript", "-e", "tell app \"TextEdit\" to quit" };
+                        Runtime.getRuntime().exec(closeCmd);
+                    }
+                } else if (isWindows()) {
+                    // Close Notepad if it is running
+                    String[] checkCmd = { "tasklist", "/FI", "IMAGENAME eq notepad.exe" };
+                    Process checkProcess = Runtime.getRuntime().exec(checkCmd);
+                    String output = new String(checkProcess.getInputStream().readAllBytes());
+                    if (output.contains("notepad.exe")) {
+                        String[] closeCmd = { "taskkill", "/IM", "notepad.exe" };
+                        Runtime.getRuntime().exec(closeCmd);
+                    }
+                } else if (isLinux()) {
+                    // Close Gedit if it is running
+                    String[] checkCmd = { "pgrep", "gedit" };
+                    Process checkProcess = Runtime.getRuntime().exec(checkCmd);
+                    String output = new String(checkProcess.getInputStream().readAllBytes());
+                    if (!output.isBlank()) {
+                        String[] closeCmd = { "pkill", "gedit" };
+                        Runtime.getRuntime().exec(closeCmd);
+                    }
+                }
+                return true;
+            } catch (IOException e) {
+                System.err.println("Failed to delete file: " + e.getMessage());
+                return false;
+            }
+        }
+        return false;
+    }
+
+    private static boolean isMacOS() {
+        String osName = System.getProperty("os.name");
+        return osName.contains("Mac");
+    }
+
+    private static boolean isWindows() {
+        String osName = System.getProperty("os.name");
+        return osName.contains("Windows");
+    }
+
+    private static boolean isLinux() {
+        String osName = System.getProperty("os.name");
+        return osName.contains("Linux");
+    }
+
+    static boolean resetPassword(String identifier, String newPassword) {
+        boolean success = false;
+        try {
+            // Read the contents of the login file into a list of strings
+            List<String> lines = new ArrayList<>();
+            BufferedReader reader = new BufferedReader(new FileReader("login.txt"));
+            String line;
+            while ((line = reader.readLine()) != null) {
+                lines.add(line);
+            }
+            reader.close();
+
+            // Find the line with the user's information and update the password
+            for (int i = 0; i < lines.size(); i++) {
+                String[] parts = lines.get(i).split(",");
+                if (parts[2].equals(identifier) || parts[3].equals(identifier)) {
+                    lines.set(i, parts[0] + "," + parts[1] + "," + parts[2] + "," + parts[3] + "," + newPassword);
+                    success = true;
+                    break;
+                }
+            }
+
+            // Write the updated list of strings back to the login file
+            BufferedWriter writer = new BufferedWriter(new FileWriter("login.txt"));
+            for (String updatedLine : lines) {
+                writer.write(updatedLine);
+                writer.newLine();
+            }
+            writer.close();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return success;
+    }
+}
