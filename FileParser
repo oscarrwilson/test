@@ -1,0 +1,121 @@
+import java.io.*;
+import java.util.Scanner;
+
+public class FileParser {
+    private String filePath;
+
+    // Constructor that takes the path of the file to parse
+    public FileParser(String filePath) {
+        this.filePath = filePath;
+    }
+
+    // Method to check if a given username and password combination exists in the file
+    public boolean checkUsernameAndPassword(String username, String password) {
+        try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
+            String line;
+            // Read each line of the file
+            while ((line = br.readLine()) != null) {
+                String[] parts = line.split(",");
+                // Check if the username and password match the current line
+                if (parts[2].equalsIgnoreCase(username) && parts[4].equals(password)) {
+                    return true;
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    // Method to check if a given username or email exists in the file
+    public int checkUsernameOrEmailExist(String username, String email) {
+        int result = 0;
+
+        try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
+            String line;
+
+            // Read each line of the file
+            while ((line = br.readLine()) != null) {
+                String[] parts = line.split(",");
+
+                // Check if the username exists in the current line
+                if (parts.length >= 3 && parts[2].equalsIgnoreCase(username)) {
+                    result |= 1; // Set the first bit of the result to 1
+                }
+
+                // Check if the email exists in the current line
+                if (parts.length >= 4 && parts[3].equalsIgnoreCase(email)) {
+                    result |= 2; // Set the second bit of the result to 1
+                }
+
+                // If both the username and email exist in the file, break out of the loop
+                if (result == 3) {
+                    break;
+                }
+            }
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return result; // Return the result
+    }
+
+    // Method to check if a user exists in the file
+    public static boolean checkUserExists(String txtIdentifier) {
+        try (BufferedReader br = new BufferedReader(new FileReader("login.txt"))) {
+            String line;
+            while ((line = br.readLine()) != null) {
+                String[] parts = line.split(",");
+                String username = parts[2];
+                String email = parts[3];
+                if (txtIdentifier.equals(username) || txtIdentifier.equals(email)) {
+                    return true;
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    // Method to verify a one-time password
+    public static boolean verifyOneTimePassword(String enteredPassword) {
+        // Read the password from the text file
+        try (Scanner scanner = new Scanner(new File("OneTimePassword.txt"))) {
+            int password = scanner.nextInt();
+            // Verify the entered password
+            if (enteredPassword.equals(Integer.toString(password))) {
+                // Delete the password file if the entered password is correct
+                FileAccess.deleteFile("OneTimePassword.txt");
+                return true;
+            }
+        } catch (IOException e) {
+            System.err.println("Failed to read password file: " + e.getMessage());
+        }
+
+        return false;
+    }
+
+    // Method to retrieve password from the file
+    static String getPasswordFromFile(String identifier) {
+        String password = null;
+        try {
+            BufferedReader reader = new BufferedReader(new FileReader("login.txt"));
+            String line;
+// Read each line of the file
+            while ((line = reader.readLine()) != null) {
+                String[] parts = line.split(",");
+// Check if the identifier matches the username or email in the current line
+                if (parts[2].equals(identifier) || parts[3].equals(identifier)) {
+                    password = parts[4];
+                    break;
+                }
+            }
+            reader.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return password;
+    }
+}
