@@ -1,0 +1,279 @@
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.io.File;
+import java.io.IOException;
+
+public class VerifyAccountGUI extends javax.swing.JFrame {
+
+    public VerifyAccountGUI(String identifier) {
+        initComponents();
+        setLocationRelativeTo(null);
+        setResizable(false);
+        setSize(720, 410);
+        this.identifier = identifier;
+    }
+
+
+
+
+    private javax.swing.JPanel ForgotPass;
+    private javax.swing.JButton btnContinue;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JLabel lblTitleText;
+    private javax.swing.JPanel pnl_bg;
+    private javax.swing.JSeparator sept_Identifier;
+    private javax.swing.JLabel txtBlock1;
+    private javax.swing.JLabel txtBlock2;
+    private javax.swing.JTextField txtIdentifier;
+    private javax.swing.JLabel txtBackToLogin;
+    private RegistrationFormHandler registrationFormHandler;
+    private String identifier;
+
+    private void initComponents() {
+
+        pnl_bg = new javax.swing.JPanel();
+        jPanel1 = new javax.swing.JPanel();
+        ForgotPass = new javax.swing.JPanel();
+        btnContinue = new javax.swing.JButton();
+        lblTitleText = new javax.swing.JLabel();
+        txtIdentifier = new javax.swing.JTextField();
+        sept_Identifier = new javax.swing.JSeparator();
+        txtBlock1 = new javax.swing.JLabel();
+        txtBlock2 = new javax.swing.JLabel();
+        txtBackToLogin = new JLabel();
+
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        pnl_bg.setBackground(new java.awt.Color(255, 255, 255));
+
+        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel1.setLayout(new java.awt.CardLayout());
+
+        ForgotPass.setBackground(new java.awt.Color(255, 255, 255));
+
+        btnContinue.setBackground(new java.awt.Color(0, 153, 153));
+        btnContinue.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        btnContinue.setForeground(new java.awt.Color(255, 255, 255));
+        btnContinue.setText("Continue");
+        btnContinue.setBorder(null);
+        btnContinue.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        btnContinue.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnContinueActionPerformed(evt);
+            }
+        });
+
+        lblTitleText.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        lblTitleText.setForeground(new java.awt.Color(102, 102, 102));
+        lblTitleText.setText("Verify Your Account");
+
+        txtIdentifier.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
+        txtIdentifier.setForeground(new java.awt.Color(102, 102, 102));
+        txtIdentifier.setText("Enter One-Time Password");
+        txtIdentifier.setToolTipText("");
+        txtIdentifier.setBorder(null);
+        txtIdentifier.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        txtIdentifier.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtIdentifierFocusGained(evt);
+            }
+
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtIdentifierFocusLost(evt);
+            }
+        });
+        txtIdentifier.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtIdentifierActionPerformed(evt);
+            }
+        });
+
+        sept_Identifier.setBackground(new java.awt.Color(255, 255, 255));
+        sept_Identifier.setForeground(new java.awt.Color(0, 153, 153));
+        sept_Identifier.setAlignmentX(sept_Identifier.CENTER_ALIGNMENT);
+
+        txtBlock1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        txtBlock1.setText("Please Enter The One-Time Code Sent to");
+        txtBlock1.setToolTipText("");
+        txtBlock1.setHorizontalAlignment(txtBlock1.CENTER);
+
+        txtBlock2.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
+        String fileLocation = FileAccess.createOneTimePasswordFile();
+        txtBlock2.setText("Your File Location - " + fileLocation);
+        txtBlock2.setHorizontalAlignment(txtBlock2.CENTER);
+
+        txtBackToLogin.setFont(new Font("Tahoma", 0, 13)); // NOI18N
+        txtBackToLogin.setText("Back To Login");
+
+        GroupLayout ForgotPassLayout = new GroupLayout(ForgotPass);
+        ForgotPass.setLayout(ForgotPassLayout);
+        ForgotPassLayout.setHorizontalGroup(
+                ForgotPassLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                        .addGroup(ForgotPassLayout.createSequentialGroup()
+                                .addGap(27, 27, 27)
+                                .addComponent(lblTitleText, GroupLayout.PREFERRED_SIZE, 214, GroupLayout.PREFERRED_SIZE))
+                        .addGroup(ForgotPassLayout.createSequentialGroup()
+                                .addGap(43, 43, 43)
+                                .addComponent(txtBackToLogin))
+                        .addGroup(GroupLayout.Alignment.CENTER, ForgotPassLayout.createSequentialGroup()
+                                .addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGroup(ForgotPassLayout.createParallelGroup(GroupLayout.Alignment.CENTER)
+                                        .addComponent(btnContinue, GroupLayout.PREFERRED_SIZE, 103, GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(txtBlock1)
+                                        .addComponent(txtBlock2)
+                                        .addComponent(txtIdentifier, GroupLayout.PREFERRED_SIZE, 223, GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(sept_Identifier, GroupLayout.PREFERRED_SIZE, 223, GroupLayout.PREFERRED_SIZE))
+                                .addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        ForgotPassLayout.setVerticalGroup(
+                ForgotPassLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                        .addGroup(ForgotPassLayout.createSequentialGroup()
+                                .addGap(24, 24, 24)
+                                .addComponent(lblTitleText, GroupLayout.PREFERRED_SIZE, 49, GroupLayout.PREFERRED_SIZE)
+                                .addGap(76, 76, 76)
+                                .addComponent(txtBlock1)
+                                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtBlock2)
+                                .addGap(18, 18, 18)
+                                .addComponent(txtIdentifier, GroupLayout.PREFERRED_SIZE, 40, GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(sept_Identifier, GroupLayout.PREFERRED_SIZE, 22, GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, 120, Short.MAX_VALUE)
+                                .addGroup(ForgotPassLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+                                        .addComponent(txtBackToLogin)
+                                        .addComponent(btnContinue, GroupLayout.PREFERRED_SIZE, 38, GroupLayout.PREFERRED_SIZE))
+                                .addGap(25, 25, 25))
+        );
+
+        GroupLayout jPanel1Layout = new GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+                jPanel1Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                        .addComponent(ForgotPass, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        jPanel1Layout.setVerticalGroup(
+                jPanel1Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                        .addComponent(ForgotPass, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+
+        GroupLayout pnl_bgLayout = new GroupLayout(pnl_bg);
+        pnl_bg.setLayout(pnl_bgLayout);
+        pnl_bgLayout.setHorizontalGroup(
+                pnl_bgLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                        .addComponent(jPanel1, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        pnl_bgLayout.setVerticalGroup(
+                pnl_bgLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                        .addComponent(jPanel1, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+
+        GroupLayout layout = new GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+                layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                        .addComponent(pnl_bg, GroupLayout.Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        layout.setVerticalGroup(
+                layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                        .addComponent(pnl_bg, GroupLayout.Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+
+        pack();
+
+        // Define a mouse listener for lblLogin label
+        txtBackToLogin.addMouseListener(new MouseAdapter() {
+
+            // Define behavior when the mouse enters lblLogin
+            public void mouseEntered(MouseEvent e) {
+                // Change lblLogin's color to blue
+                txtBackToLogin.setForeground(Color.BLUE);
+                // Change the cursor to a hand cursor
+                txtBackToLogin.setCursor(new Cursor(Cursor.HAND_CURSOR));
+            }
+
+            // Define behavior when the mouse exits lblLogin
+            public void mouseExited(MouseEvent e) {
+                // Change lblLogin's color to black
+                txtBackToLogin.setForeground(Color.BLACK);
+                // Change the cursor back to the default cursor
+                txtBackToLogin.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+            }
+
+            // Define behavior when lblLogin is clicked
+            public void mouseClicked(MouseEvent e) {
+                // Create a new LoginGUI window
+                LoginGUI loginGUI = new LoginGUI();
+                // Set the new window to be visible
+                loginGUI.setVisible(true);
+                // Close the current window (RegisterGUI)
+                dispose();
+            }
+        });
+
+        txtBlock2.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                try {
+                    Desktop.getDesktop().open(new File(fileLocation));
+                } catch (IOException ex) {
+                    System.err.println("Failed to open password file: " + ex.getMessage());
+                }
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                txtBlock2.setForeground(Color.BLUE);
+                txtBlock2.setCursor(new Cursor(Cursor.HAND_CURSOR));
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                txtBlock2.setForeground(Color.BLACK);
+                txtBlock2.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+            }
+        });
+
+
+        // Create a new RegisterController object
+//            registrationFormHandler = new RegistrationFormHandler();
+
+        // Add an action listener to the btnRegister button using a lambda expression
+        btnContinue.addActionListener(e -> {
+                String txtIdentifierValue = txtIdentifier.getText();
+                if (FileParser.verifyOneTimePassword(txtIdentifierValue)) {
+                    // Delete the password file if the entered password is correct
+                    FileAccess.deleteFile("myOneTimePassword.txt");
+
+                    ResetPasswordGUI resetPasswordGUI = new ResetPasswordGUI(identifier);
+                    resetPasswordGUI.setVisible(true);
+                    dispose();
+
+                } else {
+                    // Show an error message if the entered password is incorrect
+                    JOptionPane.showMessageDialog(
+                            null,
+                            "<html><div style='text-align: center;'>The one-time password entered is incorrect.<br>Reopen the text file & try again.</div></html>",
+                            "Incorrect Password",
+                            JOptionPane.ERROR_MESSAGE
+                    );
+                }
+            });
+        }
+
+    private void txtIdentifierActionPerformed(java.awt.event.ActionEvent evt) {
+    }
+
+    private void txtIdentifierFocusGained(java.awt.event.FocusEvent evt) {
+        txtIdentifier.setText(txtIdentifier.getText().equals("Enter One-Time Password") ? "" : txtIdentifier.getText());
+    }
+
+    private void txtIdentifierFocusLost(java.awt.event.FocusEvent evt) {
+        txtIdentifier.setText(txtIdentifier.getText().isEmpty() ? "Enter One-Time Password" : txtIdentifier.getText());
+    }
+
+    private void btnContinueActionPerformed(java.awt.event.ActionEvent evt) {
+    }
+}
