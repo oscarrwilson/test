@@ -1,0 +1,99 @@
+import javax.swing.*;
+import java.util.function.Function;
+
+public class RegistrationFormHandler extends JFrame {
+
+    // Function that takes a message string and shows an error dialog, then returns false
+    private Function<String, Boolean> showError = message -> {
+        JOptionPane.showMessageDialog(this, message, "Error", JOptionPane.ERROR_MESSAGE);
+        return false;
+    };
+
+    // Validate the input fields and show error messages if any of the validation checks fail
+    public boolean validateFields(String firstName, String lastName, String username, String email, String password, String confirmPassword) {
+
+        // Use ternary statements to check the validity of each text field and shows error message if invalid
+        boolean isValidFirstName = isValidFirstName(firstName) || (showError.apply("Please enter a valid First Name (up to 25 characters long and not 'First Name')") && false);
+        boolean isValidLastName = isValidLastName(lastName) || (showError.apply("Please enter a valid last name (up to 25 characters long and not 'Last Name')") && false);
+        boolean isValidUsername = isValidUsername(username) || (showError.apply("Please enter a valid username (up to 25 characters long and not 'Username')") && false);
+        boolean isValidEmail = isValidEmail(email) || (showError.apply("Please enter a valid email address with '@' & '.'") && false);
+        boolean isValidPassword = isValidPassword(password) || (showError.apply("Please enter a valid password (at least 8 characters long and containing at least one uppercase letter, one lowercase letter, one number, and one special character)") && false);
+        boolean isValidConfirmPassword = isValidConfirmPassword(password, confirmPassword) || (showError.apply("Passwords do not match") && false);
+
+        // Check if the username or email already exists in the file
+        if (isValidUsername && isValidEmail) {
+            if (checkIfUsernameOrEmailExists(username, email)) {
+                return false;
+            }
+        }
+
+        // If all fields are valid, store the user information in a file
+        if (isValidFirstName && isValidLastName && isValidEmail && isValidUsername && isValidPassword && isValidConfirmPassword) {
+            String value = firstName + "," + lastName + "," + username + "," + email + "," + password;
+            FileAccess.writeToFile(value, "login.txt");
+            return true;
+        }
+
+        // Return true if all fields are valid, false otherwise
+        return false;
+    }
+
+    // Check if the first name is valid (up to 25 characters and not equal to "First Name")
+    private boolean isValidFirstName(String firstName) {
+        return firstName.length() <= 25 && !firstName.equalsIgnoreCase("First Name");
+    }
+
+    // Check if the last name is valid (up to 25 characters and not equal to "Last Name")
+    private boolean isValidLastName(String lastName) {
+        return lastName.length() <= 25 && !lastName.equalsIgnoreCase("Last Name");
+    }
+
+    // Check if the email is valid (using a regular expression pattern)
+    private boolean isValidEmail(String email) {
+        return email.matches("[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Z|a-z]{2,}");
+    }
+
+    // Check if the username is valid (up to 25 characters and not equal to "Username")
+    private boolean isValidUsername(String username) {
+        return username.length() <= 25 && !username.equalsIgnoreCase("Username");
+    }
+
+    // Check if the password is valid (at least 8 characters, with at least one uppercase letter, one lowercase letter, one number, and one special character)
+    static boolean isValidPassword(String password) {
+        return password.length() >= 8 && password.matches("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}$");
+    }
+
+    // Check if the confirmed password matches the original password
+    static boolean isValidConfirmPassword(String password, String confirmPassword) {
+        return confirmPassword.equals(password);
+    }
+
+    private boolean checkIfUsernameOrEmailExists(String username, String email) {
+        // Create an instance of FileParser and pass the file name "login.txt"
+        FileParser fileParser = new FileParser("login.txt");
+        // Call the checkUsernameOrEmailExist method on the fileParser object and pass the username and email arguments
+        int result = fileParser.checkUsernameOrEmailExist(username, email);
+        // Create a variable to hold an error message
+        String errorMessage = null;
+
+        // Use a switch statement to determine the appropriate error message based on the result of the checkUsernameOrEmailExist method
+        switch (result) {
+            case 1:
+                errorMessage = "Username already taken. Please choose a different one.";
+                break;
+            case 2:
+                errorMessage = "Email already taken. Please choose a different one.";
+                break;
+            case 3:
+                errorMessage = "Both username and email are already taken. Please choose different ones.";
+                break;
+        }
+        // If there is an error message, call the showError function with the error message and return true
+        if (errorMessage != null) {
+            showError.apply(errorMessage);
+            return true;
+        }
+        // If there is no error message, return false
+        return false;
+    }
+}
