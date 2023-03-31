@@ -34,7 +34,9 @@ public class SuccessGUI extends JFrame {
         titleLabel.setText("Account successfully created!");
         titleLabel.setAlignmentY(0.0F);
 
-        registeredImageLabel.setIcon(new ImageIcon(getClass().getResource("img_registered copy.png")));
+        registeredImageLabel.setIcon(new ImageIcon(getClass().getResource("gif_Registered.gif")));
+        registeredImageLabel.setHorizontalAlignment(SwingConstants.CENTER);
+        registeredImageLabel.setVerticalAlignment(SwingConstants.CENTER);
 
         instructionLabel.setFont(new java.awt.Font("Tahoma", 0, 13));
         instructionLabel.setText("Go back to the login screen to get started!");
