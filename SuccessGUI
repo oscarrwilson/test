@@ -12,14 +12,14 @@ public class SuccessGUI extends JFrame {
     // Constructor
     public SuccessGUI() {
         initComponents();
-        setResizable(false);
-        setSize(720, 410);
+        setResizable(false); // Disable window resizing
+        setSize(720, 410); // Set the window size
         setLocationRelativeTo(null); // Center the window on the screen
     }
 
     // Method to initialize the GUI components
     private void initComponents() {
-        // Creating the response panel and initializing its components
+        // Create the response panel and initialize its components
         responsePanel = new JPanel();
 
         titleLabel = new JLabel();
@@ -27,30 +27,30 @@ public class SuccessGUI extends JFrame {
         instructionLabel = new JLabel();
         loginButton = new JButton();
 
-        responsePanel.setBackground(new java.awt.Color(255, 255, 255));
+        responsePanel.setBackground(new java.awt.Color(255, 255, 255)); // Set the panel background color
 
-        titleLabel.setFont(new java.awt.Font("Tahoma", 0, 24));
-        titleLabel.setForeground(new java.awt.Color(51, 153, 255));
-        titleLabel.setText("Account successfully created!");
-        titleLabel.setAlignmentY(0.0F);
+        titleLabel.setFont(new java.awt.Font("Tahoma", 0, 24)); // Set the title font and size
+        titleLabel.setForeground(new java.awt.Color(51, 153, 255)); // Set the title text color
+        titleLabel.setText("Account successfully created!"); // Set the title text
+        titleLabel.setAlignmentY(0.0F); // Align the title label to the top of the panel
 
-        registeredImageLabel.setIcon(new ImageIcon(getClass().getResource("gif_Registered.gif")));
-        registeredImageLabel.setHorizontalAlignment(SwingConstants.CENTER);
-        registeredImageLabel.setVerticalAlignment(SwingConstants.CENTER);
+        registeredImageLabel.setIcon(new ImageIcon(getClass().getResource("gif_Registered.gif"))); // Set the registered image
+        registeredImageLabel.setHorizontalAlignment(SwingConstants.CENTER); // Center the image horizontally
+        registeredImageLabel.setVerticalAlignment(SwingConstants.CENTER); // Center the image vertically
 
-        instructionLabel.setFont(new java.awt.Font("Tahoma", 0, 13));
-        instructionLabel.setText("Go back to the login screen to get started!");
+        instructionLabel.setFont(new java.awt.Font("Tahoma", 0, 13)); // Set the instruction font and size
+        instructionLabel.setText("Go back to the login screen to get started!"); // Set the instruction text
 
-        loginButton.setBackground(new java.awt.Color(0, 153, 153));
-        loginButton.setFont(new java.awt.Font("Tahoma", 0, 24));
-        loginButton.setForeground(new java.awt.Color(255, 255, 255));
-        loginButton.setText("Login");
-        loginButton.setBorder(null);
+        loginButton.setBackground(new java.awt.Color(0, 153, 153)); // Set the login button background color
+        loginButton.setFont(new java.awt.Font("Tahoma", 0, 24)); // Set the login button font and size
+        loginButton.setForeground(new java.awt.Color(255, 255, 255)); // Set the login button text color
+        loginButton.setText("Login"); // Set the login button text
+        loginButton.setBorder(null); // Remove the button border
         loginButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 handleLoginButton();
             }
-        });
+        }); // Add an action listener to the login button
 
         GroupLayout responsePanelLayout = new GroupLayout(responsePanel);
         responsePanel.setLayout(responsePanelLayout);
